@@ -1,0 +1,35 @@
+.gallery{
+    /*Set style to your gallery div*/
+}
+img{
+    width:100px;
+    margin:10px;
+    padding:0;
+    border: 5px solid #FFF;
+}
+.chosen{
+	position:relative;
+	top:50px;
+	margin:0 auto;
+	text-align:center;	
+}
+.aktivia{
+    width:60%;
+	height:600px;
+    position:relative;
+	top:50px;                                        
+	left:200px;                                      
+	margin:0 auto;
+	text-align:center;
+}
+#close{
+    display:none;
+    width:50px;
+    height:50px;
+    position:fixed;
+	top:50px;
+    right:50px;
+	margin:0 auto;
+	text-align:center;
+    color:#FFF;	
+}
