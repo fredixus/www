@@ -1,0 +1,17 @@
+header {
+    height: 10%;
+}
+main {
+    top: 10%;
+	height:75%;
+	padding-bottom: 10%;
+}
+h1 a span {
+	padding-right:1em;
+	text-indent: 25px;
+	font-family: Verdana, Geneva, sans-serif;
+    color:white;
+}
+section {
+    /*overflow-y:auto;*/
+}
