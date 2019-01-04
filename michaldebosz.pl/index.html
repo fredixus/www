@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<title>Michał Dębosz</title>
+</head>
+
+<body>
+
+<header>
+<h1><a href="#">Michał Dębosz</a></h1>
+<h1><a id="MD" href="#"></a></h1>
+</header>
+ 
+<main>
+    <nav>
+        <ul id="nav">
+            <li><a href="about.html">O mnie</a></li>
+            <li><a href="test.html">Projekty</a></li>
+            <li><a href="travel.html">Hobby</a></li>
+        </ul>
+    </nav>
+</main>
+
+<footer>
+Copyright 2018 Michał Dębosz. 
+</footer>
+</body>
+
+</html>
+
+<script>
+$(document).ready(function() {
+    adress = "";
+	// Check for hash value in URL
+    var hash = window.location.hash.substr(1);
+    var href = $('#nav li a').each(function(){
+        var href = $(this).attr('href');
+        if(hash==href.substr(0,href.length-5)){
+            var toLoad = hash+'.html main';
+			//$('header').load($(this).attr('href')+' header');
+			//$('header').toggleClass('main');
+            $('main').load(toLoad);
+            adress = toLoad.substr(0,4);
+        } 
+    });
+    
+    /*
+    var valueOfHeight = 0
+    if($( document ).width()>= 1279){
+        valueOfHeight = 110 + "px"
+    }else{
+        valueOfHeight = "auto"
+    } */
+    
+    if(adress!=""){
+        temp = "" ;
+        if (adress== "abou"){
+            temp = "about.html";
+        }else if (adress== "test"){
+            temp = "test.html" ;
+        }else if (adress== "trav"){
+            temp = "travel.html";
+    }
+    var toLoad = temp;
+    $('main').css({
+        "top":"10%",
+        "display":"none",
+        "height":"75%",
+        //"margin-top":"10px",
+        "padding-bottom": "10%"
+    });
+    $('header h1').css({
+       "display":"none",
+    });
+    
+    $('header').css({
+        "height":"10%",
+    });        
+				$('main').fadeOut('fast', function(){
+					$('main').load(toLoad+' section#toLoad', function(){
+						$('main').fadeIn('slow');
+					});
+				});
+				$('header h1').fadeOut('fast', function(){
+					$('header').load(toLoad+' header h1#newH1', function(){
+						$('header h1').fadeIn('slow');
+						myMap();
+					});
+				});
+                /*	
+                $('main').css({
+                    "top":"100px",
+                }); 
+			window.location.hash = toLoad.substr(0,toLoad.length-5);
+		  });  */
+    }
+    
+    
+	$('#nav li a').click(function(){
+		var toLoad = $(this).attr('href');
+		$( "header" ).animate({
+              height: '10%'
+		  }, 700, function() {
+                $('main').css({
+                    "display":"none",
+                });
+                $('header h1').css({
+                    "display":"none",
+                }); 
+				$('main').fadeOut('slow', function(){
+					$('main').load(toLoad+' section#toLoad', function(){
+						$('main').fadeIn('slow');
+					});
+				});
+				$('header h1').fadeOut('slow', function(){
+					$('header').load(toLoad+' header h1#newH1', function(){
+						$('header h1').fadeIn('slow');
+						myMap();
+					});
+				});	
+                $('main').css({
+                    "top":"10%",
+                    "display":"none",
+                    "height":"75%",
+                    //"margin-top":"10px",
+                    "padding-bottom": "10%"
+                }); 
+			window.location.hash = toLoad.substr(0,toLoad.length-5);
+		  });
+    return false;
+    });
+});
+</script>
+<script>
+function test(){
+	var email = prompt("Aby pobrać wprowadź swój adres e-mail:", "twój-email@domena.com");
+    if (email != null) {
+        window.location.href = "http://michal-debosz.cba.pl/Michal_Debosz_CV.pdf";
+    }
+}
+
+function myMap() {
+var mapProp= {
+    center:new google.maps.LatLng(50.0562943,19.9236942),
+    zoom:10,
+};
+var map=new google.maps.Map(document.getElementById("map"),mapProp);
+var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(50.0562943,19.9236942),
+    animation: google.maps.Animation.BOUNCE
+  });
+  marker.setMap(map);
+  
+  var myCity = new google.maps.Circle({
+    center: new google.maps.LatLng(50.0562943,19.9236942),
+    radius: 15000,
+    strokeColor: "#0C1D3B",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#1043A2",
+    fillOpacity: 0.4
+  });
+  myCity.setMap(map);
+  
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8Rnmf8Na50Qy-h3-oeekfGNzF6Oab4PY&callback=myMap"></script>
