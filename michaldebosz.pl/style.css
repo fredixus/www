@@ -6,7 +6,7 @@
     --main-color-font:          #0C1D3B;
     --main-color-background:    #d8dce1;
     --main-color-white:         #FFF;
-    --main-shadow:				5px 5px 10px #AAA;
+    --main-shadow:		5px 5px 10px #AAA;
     
     /* -- Sizing -- */
     --main-no:                  0em;
@@ -18,8 +18,8 @@
     --main-v-big:               4em;
     --main-center:              0 auto;
     --main-squere:              351px;
-    --main-LR:					2%;
-    --main-INDENT:     			25px;
+    --main-LR:			2%;
+    --main-INDENT:     		25px;
 	
     /* -- Width and Height -- */
     --main-size-ten:            10%;
@@ -30,8 +30,8 @@
     --main-size-full:           100%;
    
     /* -- Border -- */
-    --main-b-small:				3px #000 solid;
-    --main-b-main:				10px solid #73AFE2;
+    --main-b-small:		3px #000 solid;
+    --main-b-main:		10px solid #73AFE2;
 }
 * {
     font-family: 		Roboto, Tahoma;
