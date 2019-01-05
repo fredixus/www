@@ -55,7 +55,9 @@ $(document).ready(function() {
     }else{
         valueOfHeight = "auto"
     } */
-    
+   var H = "75%";
+   var T = "10%";
+   var P = "1%"; 
     if(adress!=""){
         temp = "" ;
         if (adress== "abou"){
@@ -67,18 +69,18 @@ $(document).ready(function() {
     }
     var toLoad = temp;
     $('main').css({
-        "top":"10%",
+        "top":T,
         "display":"none",
-        "height":"75%",
+        "height":H,
         //"margin-top":"10px",
-        "padding-bottom": "10%"
+        "padding-bottom": P
     });
     $('header h1').css({
        "display":"none",
     });
     
     $('header').css({
-        "height":"10%",
+        "height":T,
     });        
 				$('main').fadeOut('fast', function(){
 					$('main').load(toLoad+' section#toLoad', function(){
@@ -103,7 +105,7 @@ $(document).ready(function() {
 	$('#nav li a').click(function(){
 		var toLoad = $(this).attr('href');
 		$( "header" ).animate({
-              height: '10%'
+              height: T
 		  }, 700, function() {
                 $('main').css({
                     "display":"none",
@@ -123,11 +125,10 @@ $(document).ready(function() {
 					});
 				});	
                 $('main').css({
-                    "top":"10%",
+                    "top":T,
                     "display":"none",
-                    "height":"75%",
-                    //"margin-top":"10px",
-                    "padding-bottom": "10%"
+                    "height":H,
+                    "padding-bottom": P
                 }); 
 			window.location.hash = toLoad.substr(0,toLoad.length-5);
 		  });
