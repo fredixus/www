@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="styleInside.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<title>Michal Debosz</title>
+</head>
+<body>
+<header>
+<h1 id="newH1"><a href="index.html"><span>&larr;</span> O mnie</a></h1>
+</header>
+<main>
+    <section id="toLoad">
+    	<aside>
+            <article>
+            <h2>Technologie</h2>
+                <dl>
+                    <dt><a href="https://github.com/fredixus/Python">Data Analyst</a></dt>
+                    <dd>Python</dd>
+                    <dd>NumPy</dd>
+                    <dd>Pandas</dd>
+                    <dd>matplotlib</dd>
+                    
+                    <dt>Front-end</dt>
+                    <dd>Html</dd>
+                    <dd>CSS</dd>
+                    <dd>jQuery</dd>
+                    <dd>JavaScript</dd>
+                </dl>
+                <dl>
+                  <dt>Android</dt>
+                    <dd>XML</dd>
+                    <dd>Java</dd>
+                </dl>
+                <img class="foto" src="../photos/and.png" alt="Analiza sitowa" title="Analiza sitowa - mobile app"/>
+            </article>
+            <article>
+                <h2> Dane kotaktowe</h2>
+                 <ul>
+                    <li>adres email: <a href="mailto:michadbsz@gmail.com">kliknij aby napisac</a></li>
+                    <li>adres: Kraków</li>
+                 </ul>  
+            </article>
+		</aside>
+		<aside>
+            <article>
+                <h2> Mapa</h2>
+                <div id="map">&nbsp;</div>
+            </article>
+            <article>
+               <h2> CV</h2>
+               <div id="cvicon"> 
+                    <a id="cviconA" href="#" onclick="test()" title="Debosz Michal CV">Adobe<span id="pdf">PDF</span></a>
+               </div>
+            </article>
+		</aside>            
+    </section>
+</main>
+
+<footer>
+Copyright 2018 Michal Debosz. 
+</footer>
+</body>
+
+</html>
+
+<script>
+function test(){
+	var email = prompt("Aby pobrac wprowadz sw�j adres e-mail:", "tw�j-email@domena.com");
+    if (email != null) {
+        window.location.href = "http://michaldebosz.pl/please-email-me.pdf";
+    }
+}
+$(document).ready(function() {
+	// Check for hash value in URL
+    var hash = window.location.hash.substr(1);
+    var href = $('#nav li a').each(function(){
+        var href = $(this).attr('href');
+        if(hash==href.substr(0,href.length-5)){
+            var toLoad = hash+'.html #content';
+			$('header').load($(this).attr('href')+' header');
+			$('header').toggleClass('main');
+            $('#content').load(toLoad)
+        } 
+    });
+	$('#nav li a').click(function(){
+		var toLoad = $(this).attr('href');
+		$( ".main" ).animate({
+			height: "110px",
+		  }, 700, function() {
+			//$('#content').load(toLoad+' #content');
+				$('#content').fadeOut('slow', function(){
+					$('#content').load(toLoad+' #content', function(){
+						$('#content').fadeIn('slow');
+					});
+				});
+				$('header h1').fadeOut('slow', function(){
+					$('header').load(toLoad+' header h1', function(){
+						$('header h1').fadeIn('slow');
+						myMap();
+					});
+				});	
+			//$('header').load(toLoad+' header h1');
+			$('footer').load(toLoad+' footer');
+			$('header').toggleClass('main');
+			window.location.hash = toLoad.substr(0,toLoad.length-5);
+		  });
+    return false;
+    });
+});
+</script>
+<script>
+function myMap() {
+var mapProp= {
+    center:new google.maps.LatLng(50.0562943,19.9236942),
+    zoom:10,
+};
+var map=new google.maps.Map(document.getElementById("map"),mapProp);
+var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(50.0562943,19.9236942),
+    animation: google.maps.Animation.BOUNCE
+  });
+  marker.setMap(map);
+  
+  var myCity = new google.maps.Circle({
+    center: new google.maps.LatLng(50.0562943,19.9236942),
+    radius: 15000,
+    strokeColor: "#0C1D3B",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#1043A2",
+    fillOpacity: 0.4
+  });
+  myCity.setMap(map);
+  
+}
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8Rnmf8Na50Qy-h3-oeekfGNzF6Oab4PY&callback=myMap"></script>
