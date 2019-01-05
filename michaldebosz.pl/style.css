@@ -1,4 +1,4 @@
-@charset "utf-8";
+   @charset "utf-8";
 :root {
     /* -- Colors -- */
     --main-color-header:        #1043A2;
@@ -19,14 +19,16 @@
     --main-center:              0 auto;
     --main-squere:              351px;
     
-    /* -- Width and Height --*/
+    /* -- Width and Height -- */
     --main-size-ten:            10%;
     --main-size-thirtythree:    32%;
     --main-size-thirty:         30%;
     --main-size-sixty:          60%;
     --main-size-ninety:         90%;
     --main-size-full:           100%;
-    
+   
+    /* -- Border -- */
+    --main-b-small:				3px #000 solid 
 }
 * {
     font-family: Roboto, Tahoma;
@@ -149,18 +151,6 @@ nav ul li a:hover{
 }
 
 article {
-   width:45%;
-   display:inline-block;
-   height:var(--main-size-full);
-   box-shadow: var(--main-shadow);
-   background-color: var(--main-color-art);
-   margin-left:var(--main-big);
-   margin-top:var(--main-mid);
-   margin-right:var(--main-no);
-   margin-bottom:var(--main-no);
-
-}
-article.full {
     width: 93%;
     display: inline-block;
     height: var(--main-size-full);
@@ -171,8 +161,8 @@ article.full {
     margin-right: 2%;
     margin-bottom: var(--main-no);
 }
+
 article p{
-	margin: 0 auto;
     font-size: 20px;
     line-height: 30px;	
 	text-align: justify;
@@ -225,16 +215,32 @@ article h2 {
 	margin:10px;
 	float:right;	
 }
+.gallery{
+	margin: var(--main-center);
+    padding: var(--main-no);
+    width: 90%;	
+}
 .galeryL {
     width: 20%;
     float: left;
     margin: 10px;
-    border: 3px #000 solid;
+    border: var(--main-b-small);
+}
+.galeryP {
+	width:20%;
+	float:right;
+	margin:10px;
+	border:var(--main-b-small);
+}
+aside {
+    display: block;
+    width: 50%;
+    float: left;
 }
 article ul {
 	text-align:left;	
 }
-.RIGHT{
+.RIGHT {
 	float:right;
     margin-right: var(--main-big);
 }
@@ -256,7 +262,7 @@ dl {
     margin: 0 auto;
     float: left;
 }
-#cvicon{
+#cvicon {
     width: 150px;
     height: 180px;
     display: block;
@@ -268,7 +274,7 @@ dl {
     margin: 10% auto;
 	text-decoration: none;
 }
-#cviconA{
+#cviconA {
 	position: relative;
     top: 15px;
     left: 0px;
@@ -295,7 +301,7 @@ dl {
     font-weight: bold;
     font-size: 72px;
 }
-#map{
+#map {
 	padding:0;
 	margin:0;
 	width:100%;
