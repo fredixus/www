@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="styleInside.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<title>Michał Dębosz</title>
+</head>
+
+<body>
+
+<header> 
+<h1 id="newH1"><a href="index.html"><span>&larr;</span> Projekty</a></h1>
+</header>
+ 
+<main>
+   <section id="toLoad"> 
+    <article class="full">
+     <h2>Analiza bazy danych przy uyciu PYTHONA </h2>
+         <p>
+            Projekt zakładał eksploracje bazy danych <a href="googleplaystore.csv">googleplaystore.csv</a>. 
+            W bazie zawarte są informacje o aplikacjach dostępnych w Sklepie Gogle na platformie android.
+            W kolejnych kolumnach widnieją nazwa aplikacji, kategoria aplikacji, ocena użytkowników,
+            komentarze, rozmiar, Instalcje, typ/rodzaj (darmowa/płatna), cena, 
+            ograniczenia wiekowe, grupa, ostatni update, wersja, docelowa wersja androida.
+         
+            Zostały postawione hipotezy badawcze:
+            </p>
+            <ul>
+                <li>W jakich kategoriach występuję najwięcej aplikacji?</li>
+                <li>Czy ilość pobrań ma wpływ na ocene aplikacji? Jeżeli tak jaki?</li>
+                <li>Jak wpływa cena aplikacji na ilość pobrań?</li>
+                <li>Jak jest największa grupa docelowa?</li>
+                <li>Najpopularniejsza wersja androida dla wszystkich aplikacji? Jaki jest udział procentowy wybranych wersji?</li>
+            </ul>
+            <a class="RIGHT" href="art1.html">czytaj dalej...</a>
+    </article> 
+
+
+<article class="full"> 
+     <h2>Aplikacja mobilna do realizacji analizy sitowej </h2>
+         <p>
+            Projekt zakładał powstanie aplikacji mobilnej, służącej do wykonywania obliczeń dokonywanych przy badaniu piasków formierskich z wykorzystaniem metody analizy sitowej. W celu realizacji projektu zostały określone założenia projektowe, między innymi: wyświetlanie wyników obliczeń na jednym ekranie aplikacji, wykres słupkowy ziarnistości, możliwość wysyłania wyników po przez e-mail. Po określeniu cech w charakterze założeń projektowych zaprojektowany został wygląd aplikacji, który w jasny i przejrzysty sposób ukazywał by wyniki. Przy etapie projektowania należyało wykorzystać wiedze z zakresu komponentów layoutu dostępnych w środowisku programistyczym android studio.  
+            
+            <img class="nexus4" src="../photos/gif.gif"/ alt="Gif z aplikacji" title="Aplikacja">
+            
+            Przedstawiony został interfejs użytkownika aplikacji z opisem działania poszczególnych ekranów oraz zawarte zostały jej możliwości. Następnie przedstawiono wzory matematyczne zawarte w projekcie a zarazem potrzebne do wykonania obliczeń związanych z analizą sitową, z uwzględnieniem norm. Sformułowane zostały pliki Java i XML z odniesieniem do ważniejszych elementów aplikacji. Zawarto fragmenty kodu aplikacji wraz z opisem.
+         </p> 
+         <p class="center">
+         W ostatnim etapie projektu opisano instalację i sposób użytkowania zaprojektowanej i wykonanej aplikacji. Przedstawiono także możliwości dalszego rozwoju funkcjonalności zrealizowanego oprogramowania.
+         </p>
+</article> 
+
+
+    <article class="full">
+     <h2>Analiza danych udostępnianych przez ubera</h2>
+         <p>
+            Pewnego czasu byłem dostawcą jedzenia Uber Eats. Jednocześnie studiując dostarczałem od czasu do czasu jedzenie. 
+            Dzięki temu dowiedziałem się jak wygląda usługa UberEats, pamiętam swoją pierwszą dostawę - rzenada...
+            Jednak nie to chciałbym opisać. Aplikacja dostawców Uber Eats (UE) zbiera w czasie rzeczywistym informacje takie jak, położenie GPS. 
+            Do tego zaimplementowany został system zbierania danych odnośnie każdego z zamówień. W systemie można znaleźć informacje o:
+         </p>
+            <ul>
+                <li>Długości tras</li>
+                <li>Kwocie zarobku</li>
+                <li>Czasie wykonania zamówienia</li>
+            </ul>
+            <p>
+            Z każdym kolejnym przejazdem pojawiało się pytanie "Właściwie jak naliczany zostaje zarobek?", "Kiedy najlepiej jeździć?", "W jaki dzień tygodnia jest najwięcej dostaw?"
+            Wszystkie te informacje można nabyć na podstawie doświadczenia. Jednak żeby zauważyć pewne schematy gołym okiem trzeba poświęcić dużo czasu. Studiując i pracując za dużo czasu nie miałem więc postanowiłem wrzucić dane do Exela.
+            I w <a href = "ubers.xlsx">tym miejscu</a> załączam zbiór danych wyprodukowanych przezemnie. <br /><a rel="license" href="http://creativecommons.org/licenses/by/3.0/pl/"><img alt="Licencja Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/pl/88x31.png" /></a><br />Plik udostępniam na zasadach <a rel="license" href="http://creativecommons.org/licenses/by/3.0/pl/">licencji Creative Commons - Uznanie autorstwa 3.0 Polska</a>
+            
+            <br><a href="art2.html">czytaj dalej...</a>
+         </p> 
+    </article> 
+
+    <article class="full">
+     <h2>Prosty interfejs do przeglądania bazy danych</h2>
+         <p class="center">
+         Bardzo prosty projekt, który miał na celu ukazanie możliwości działania strony opartej na html/css z przeznaczeniem do wykorzystania w odlewni. Użyta została prosta baza danych zawierająca trzy tabele. Dane połączone ze sobą w sposób mozliwy do występowania w warunkach odlewni. System trzyma zbiór norm metalu, z którego wykonywane są wyrobu. Oprócz należytych norm dane zostałe spięte z informacją dla wytapiacza o określonym składzie chemicznym. Ostatecznie możliwe jest przeglądanie produktów wykonanych przez zakład z podziałem na kategorie. W docelowym systemie każdy produkt miał by swoją kartę technologiczną, pozwoliło by to na uniknięcie tworzenia danych papierowych co oprócz czasu zaoszczędziło by pieniądze. 
+         
+         <a href="http://michal-debosz.cba.pl/projekty/">Link do projektu</a>
+             </p>
+             <p class="center">
+             <img class="galeryL" height="170px" src="../photos/projekt.JPG"/ alt="System " title="Projekt aplikacji webowej">
+             <img class="galeryL" height="170px" src="../photos/projekt1.JPG"/ alt="System 1" title="Projekt aplikacji webowej 1">
+             <img class="galeryL" height="170px" src="../photos/projekt2.JPG"/ alt="System 2 " title="Projekt aplikacji webowej 2">
+             <img class="galeryL" height="170px" src="../photos/projekt3.JPG"/ alt="System 3" title="Projekt aplikacji webowej 3">
+              </p>
+              
+              http://michaldebosz.pl/Simply-Gallery.html
+    </article>
+</section>
+</main>
+
+<footer>
+Copyright 2018 Michał Dębosz. 
+</footer>
+</body>
+
+</html>
+
+<script>
+$(document).ready(function() {
+    adress = "";
+	// Check for hash value in URL
+    var hash = window.location.hash.substr(1);
+    var href = $('#nav li a').each(function(){
+        var href = $(this).attr('href');
+        if(hash==href.substr(0,href.length-5)){
+            var toLoad = hash+'.html main';
+			//$('header').load($(this).attr('href')+' header');
+			//$('header').toggleClass('main');
+            $('main').load(toLoad);
+            adress = toLoad.substr(0,4);
+        } 
+    });
+    
+    /*
+    var valueOfHeight = 0
+    if($( document ).width()>= 1279){
+        valueOfHeight = 110 + "px"
+    }else{
+        valueOfHeight = "auto"
+    } */
+    
+    if(adress!=""){
+        temp = "" ;
+        if (adress== "abou"){
+            temp = "about.html";
+        }else if (adress== "test"){
+            temp = "test.html" ;
+        }else if (adress== "trav"){
+            temp = "travel.html";
+    }
+    var toLoad = temp;
+    $('main').css({
+        "top":"10%",
+        "display":"none",
+        "height":"75%",
+        //"margin-top":"10px",
+        "padding-bottom": "10%"
+    });
+    $('header h1').css({
+       "display":"none",
+    });
+    
+    $('header').css({
+        "height":"10%",
+    });        
+				$('main').fadeOut('fast', function(){
+					$('main').load(toLoad+' section#toLoad', function(){
+						$('main').fadeIn('slow');
+					});
+				});
+				$('header h1').fadeOut('fast', function(){
+					$('header').load(toLoad+' header h1#newH1', function(){
+						$('header h1').fadeIn('slow');
+						myMap();
+					});
+				});
+                /*	
+                $('main').css({
+                    "top":"100px",
+                }); 
+			window.location.hash = toLoad.substr(0,toLoad.length-5);
+		  });  */
+    }
+    
+    
+	$('#nav li a').click(function(){
+		var toLoad = $(this).attr('href');
+		$( "header" ).animate({
+              height: '10%'
+		  }, 700, function() {
+                $('main').css({
+                    "display":"none",
+                });
+                $('header h1').css({
+                    "display":"none",
+                }); 
+				$('main').fadeOut('slow', function(){
+					$('main').load(toLoad+' section#toLoad', function(){
+						$('main').fadeIn('slow');
+					});
+				});
+				$('header h1').fadeOut('slow', function(){
+					$('header').load(toLoad+' header h1#newH1', function(){
+						$('header h1').fadeIn('slow');
+						myMap();
+					});
+				});	
+                $('main').css({
+                    "top":"10%",
+                    "display":"none",
+                    "height":"75%",
+                    //"margin-top":"10px",
+                    "padding-bottom": "10%"
+                }); 
+			window.location.hash = toLoad.substr(0,toLoad.length-5);
+		  });
+    return false;
+    });
+});
+</script>
+<script>
+function test(){
+	var email = prompt("Aby pobrać wprowadź swój adres e-mail:", "twój-email@domena.com");
+    if (email != null) {
+        window.location.href = "http://michal-debosz.cba.pl/Michal_Debosz_CV.pdf";
+    }
+}
+
+function myMap() {
+var mapProp= {
+    center:new google.maps.LatLng(50.0562943,19.9236942),
+    zoom:10,
+};
+var map=new google.maps.Map(document.getElementById("map"),mapProp);
+var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(50.0562943,19.9236942),
+    animation: google.maps.Animation.BOUNCE
+  });
+  marker.setMap(map);
+  
+  var myCity = new google.maps.Circle({
+    center: new google.maps.LatLng(50.0562943,19.9236942),
+    radius: 15000,
+    strokeColor: "#0C1D3B",
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: "#1043A2",
+    fillOpacity: 0.4
+  });
+  myCity.setMap(map);
+  
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8Rnmf8Na50Qy-h3-oeekfGNzF6Oab4PY&callback=myMap"></script>
