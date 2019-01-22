@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block heading %}
+  <h1>{{ headline }}</h1>
+{% endblock %}
+<!-- ------------------------------------------- --> 
+{% block body %}
+
+  <ul>
+  {% for link in links %}
+    <li><a href="/{{ link }}">{{ link }}</a></li>
+  {% endfor %}  
+  </ul>
+  
+  <form action="{{ url_for('hello') }}" method="GET">
+      <input type="text" name="name" placeholder="Enter Your Name">
+      <button>Submit</button>
+  <form>
+  
+{% endblock %}
+<!-- ------------------------------------------- -->  
+{% block footer %}
+  
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block heading %}
+  <h1>{{ headline }}</h1>
+{% endblock %}
+<!-- ------------------------------------------- --> 
+{% block body %}
+  {% if new_year %}
+    <h1>Yes! Happy New Year!</h1>
+  {% else %}
+    <h1>No.</h1>
+  {% endif %}
+  
+  <ul>
+  {% for link in links %}
+    <li><a href="/{{ link }}">{{ link }}</a></li>
+  {% endfor %}  
+  </ul>
+  
+  <ol>
+  {% for name in names %}
+    <li>{{ name }}</li>
+  {% endfor %}
+  </ol>
+  
+{% endblock %}
+<!-- ------------------------------------------- -->  
+{% block footer %}
+  
+{% endblock %}
