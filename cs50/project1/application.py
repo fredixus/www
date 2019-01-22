@@ -1,4 +1,5 @@
 import os
+import requests
 
 from flask import Flask, session
 from flask_session import Session
@@ -20,7 +21,9 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
+res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "uFHO4yqNDsoifSLOVF07bA", "isbns": "9781632168146"})
 
 @app.route("/")
 def index():
-    return "Project 1: TODO"
+    return "Project 1: TODO - with changes <br>"+ str(res.json())
+
