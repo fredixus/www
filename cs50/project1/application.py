@@ -8,6 +8,10 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 app = Flask(__name__)
 
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
@@ -44,8 +48,7 @@ def register():
     return render_template("register.html", title="Rejestracja",links = aLinks,headline="Rejestracja")
 
 
-@app.route("/hello", methods=["GET"])
+@app.route("/hello", methods=["POST"])
 def hello():
-    name = request.form.get("name") # take the request the user made, access the form,
-                                    # and store the field called `name` in a Python variable also called `name`
-    return render_template("hello.html",name=name)
+    name = request.form.get("name")
+    return render_template("hello.html", name=name)
