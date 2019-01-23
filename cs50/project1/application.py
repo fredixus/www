@@ -35,7 +35,7 @@ def hello(name):
 """  
   
 aNames = ["Adam","Michal","Pablo"]
-aLinks = ["register","Michal","index"]
+aLinks = ["register","Michal","index","notes"]
 @app.route("/")
 @app.route("/index")
 def index():
@@ -52,3 +52,13 @@ def register():
 def hello():
     name = request.form.get("name")
     return render_template("hello.html", name=name)
+    
+@app.route("/notes", methods=["GET", "POST"])
+def notes():
+    if session.get("notes") is None:
+        session["notes"] = []
+    if request.method == "POST":
+        note = request.form.get("note")
+        session["notes"].append(note)
+
+    return render_template("notes.html", notes=session["notes"])
