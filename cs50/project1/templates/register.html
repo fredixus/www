@@ -11,8 +11,9 @@
   {% endfor %}  
   </ul>
   
-  <form action="{{ url_for('hello') }}" method="post">
+  <form action="{{ url_for('afterReg') }}" method="post">
       <input type="text" name="name" placeholder="Enter Your Name">
+      <input type="password" name="pass" placeholder="Enter Your Password">
       <button>Submit</button>
   <form>
   

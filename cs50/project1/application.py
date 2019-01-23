@@ -62,3 +62,17 @@ def notes():
         session["notes"].append(note)
 
     return render_template("notes.html", notes=session["notes"])
+   
+#afterReg
+@app.route("/afterReg", methods=["GET", "POST"])
+def afterReg():
+    if session.get("register") is None:
+        session["register"][""] = []
+    if request.method == "POST":  
+        name = request.form.get("name")
+        passwd = request.form.get("pass")
+        session["register"].append({"Name: ":name,"Pass: ":passwd})
+        #session["register"].append(passwd)
+        #test{"User name: ",name,"User password: ",passwd}
+    return render_template("afterReg.html", users=session["register"])
+    
