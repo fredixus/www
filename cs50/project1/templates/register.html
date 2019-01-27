@@ -3,13 +3,18 @@
   <h1>{{ headline }}</h1>
 {% endblock %}
 <!-- ------------------------------------------- --> 
-
 {% block body %}
 
-  <form class="form-group" action="{{ url_for('afterReg') }}" method="post">
-      <input class="form-control" type="text" name="name" placeholder="Enter Your Name">
-      <input class="form-control" type="password" name="pass" placeholder="Enter Your Password">
-      <button class="submit btn btn-primary" type="submit">Submit</button>
+  <ul>
+  {% for link in links %}
+    <li><a href="/{{ link }}">{{ link }}</a></li>
+  {% endfor %}  
+  </ul>
+  
+  <form action="{{ url_for('afterReg') }}" method="post">
+      <input type="text" name="name" placeholder="Enter Your Name">
+      <input type="password" name="pass" placeholder="Enter Your Password">
+      <button>Submit</button>
   <form>
   
 {% endblock %}
