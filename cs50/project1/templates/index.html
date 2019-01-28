@@ -4,26 +4,24 @@
 {% endblock %}
 <!-- ------------------------------------------- --> 
 {% block body %}
-  {% if new_year %}
+  <!--{% if new_year %}
     <h1>Yes! Happy New Year!</h1>
   {% else %}
     <h1>No.</h1>
-  {% endif %}
+  {% endif %}-->
   
-  <ul>
-  {% for link in links %}
-    <li><a href="/{{ link }}">{{ link }}</a></li>
-  {% endfor %}  
-  </ul>
-  
-  <ol>
+  <ol class="list-group">
   {% for name in names %}
-    <li>{{ name }}</li>
+    <li class="list-group-item">{{ name }}</li>
   {% endfor %}
   </ol>
   
 {% endblock %}
 <!-- ------------------------------------------- -->  
 {% block footer %}
-  
+
 {% endblock %}
+<!--
+list-group-item-primary
+list-group-item-secondary
+-->
