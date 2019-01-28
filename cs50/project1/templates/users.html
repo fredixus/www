@@ -5,11 +5,14 @@
 <!-- ------------------------------------------- --> 
 {% block body %}
 
-    {{ users }}
 
+  {% for name in users %}
+    <li class="list-group-item">{{ name }}</li>
+  {% endfor %}
+  </ol>
   
 {% endblock %}
 <!-- ------------------------------------------- -->  
 {% block footer %}
-  
+
 {% endblock %}
