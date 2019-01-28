@@ -77,6 +77,15 @@ def afterReg():
         name = request.form.get("name")
         passwd = request.form.get("pass")
         session["register"].append({"Id":id,"Name: ":name,"Pass: ":passwd})
-        #session["register"].append(passwd)
-        #test{"User name: ",name,"User password: ",passwd}
     return render_template("afterReg.html", header = "Database snapshot",users=session["register"])
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if session.get("login") is None:
+        session["login"] = []
+    if request.method == "POST":  
+        name = request.form.get("name")
+        passwd = request.form.get("pass")
+        session["login"].append({"Name: ":name,"Pass: ":passwd})
+    return render_template("login.html", users=session["login"], title="Logowanie",links = aLinks,headline="Logowanie")
+    
