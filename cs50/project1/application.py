@@ -51,19 +51,19 @@ aLinksAfetrLogin = ["index","search","logout"]
 @app.route("/")
 @app.route("/index")
 def index():
-    headline = "Hello, world!"
-    return render_template("index.html", title="Strona Glowna",headline=headline, new_year=True,names = aNames,links = aLinks)
+    headline = "Book page - browse your books."
+    return render_template("index.html", title="Book page",headline=headline, new_year=True,names = aNames,links = aLinks)
     #return "Project 1: TODO - with changes <br>"+ str(res.json())
 
 @app.route("/register")
 def register():
-    return render_template("register.html", title="Rejestracja",links = aLinks,headline="Rejestracja")
+    return render_template("register.html", title="Register",links = aLinks,headline="Register")
 
 
-@app.route("/hello", methods=["POST"])
+"""@app.route("/hello", methods=["POST"])
 def hello():
     name = request.form.get("name")
-    return render_template("hello.html", name=name)
+    return render_template("hello.html", name=name)"""
 
 @app.route("/notes", methods=["GET", "POST"])
 def notes():
@@ -73,13 +73,13 @@ def notes():
         note = request.form.get("note")
         session["notes"].append(note)
 
-    return render_template("notes.html", notes=session["notes"])
+    return render_template("notes.html", notes=session["notes"],links = aLinks,headline="Put your notes")
 
 #afterReg
 
 @app.route("/afterReg", methods=["GET", "POST"])
 def afterReg():
-    
+
     if session.get("register") is None:
         session["register"]= []
     if request.method == "POST":
@@ -89,7 +89,8 @@ def afterReg():
             id = session["register"][-1]['Id'] + 1
         name = request.form.get("name")
         passwd = request.form.get("pass")
-        session["register"].append({"Id":id,"Name: ":name,"Pass: ":passwd})
+        if name != "" and name != "":
+            session["register"].append({"Id":id,"Name: ":name,"Pass: ":passwd})
     return render_template("afterReg.html", header = "Database snapshot",users=session["register"][-1]['Name: '])
 
 @app.route("/login", methods=["GET", "POST"])
@@ -102,26 +103,25 @@ def login():
         name = request.form.get("name")
         passwd = request.form.get("pass")
         #session["login"].append({"Id":id,"Name: ":name,"Pass: ":passwd})
-        
+
         """if name in session["register"][:][1] and passwd in session["register"][:][2]:
             ValueOf = True
             tmp = str(name in session["register"][:][1])
-            
+
         else:
             ValueOf = False
-        tmp = session["register"]    
-            """      
-    return render_template("login.html", users=session["login"], title="Logowanie",links = aLinks,headline="Logowanie")
+        tmp = session["register"]
+            """
+    return render_template("login.html", users=session["login"], title="Login",links = aLinks,headline="Login")
 
 @app.route("/users")
 def users():
-    return render_template("users.html", header = "Users",links = aLinks,users=session["register"])
+    return render_template("users.html", header = "Users in Data Base",title="Users in DB",links = aLinks,users=session["register"])
 
 @app.route("/search")
 def search():
-    return render_template("search.html", header = "Szukaj",links = aLinksAfetrLogin)
-    
+    return render_template("search.html", header = "Find",links = aLinksAfetrLogin)
+
 @app.route("/afterSearch")
 def afterSearch():
     return render_template("afterSearch.html", header = "afterSearch",links = aLinksAfetrLogin)
-    
