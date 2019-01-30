@@ -1,5 +1,6 @@
 ﻿import os
 import requests
+import importCSV as IM
 
 from flask import Flask, session, render_template, request
 from flask_session import Session
@@ -35,7 +36,7 @@ def hello(name):
     name = name.capitalize()
     return f"<h1>Hello, {name}!</h1>"
 """
-
+"""
 book1 = {'books': [{
                 'id': 29207858,
                 'isbn': '1632168146',
@@ -48,7 +49,7 @@ book1 = {'books': [{
                 'work_text_reviews_count': 10,
                 'average_rating': '4.04'
             }]
-}
+}"""
 
 
 aNames = [
@@ -139,23 +140,39 @@ def users():
 def search():
     return render_template("search.html", header = "Find",links = aLinksAfetrLogin)
 
-@app.route("/afterSearch")
+@app.route("/afterSearch", methods=["GET", "POST"])
 def afterSearch():
-    return render_template("afterSearch.html", header = "afterSearch",links = aLinksAfetrLogin)
+    isbn = request.form.get("isbn")
+    title = request.form.get("title")
+    author = request.form.get("author")
+    
+    return render_template(
+    "afterSearch.html", 
+    header = "afterSearch",
+    #title = title,
+    links = aLinksAfetrLogin
+    )
 
 @app.route("/book")
 def book():
     #currentBook = res.json()
     currentBook = getBookInfoFromApiISBN(9781632168146)
     #currentBook = book1
+    newBook = IM.check(currentBook['books'][0]['isbn'],IM.liblary)
+    
     return render_template(
         "book.html", 
-        header = "title of book",
-        title="title of book",
+        header = newBook['title'],
+        title = newBook['title']+' - '+newBook['author']+' - '+newBook['isbn']+' - '+newBook['year'],
+        author =  newBook['author'],
+        year = newBook['year'],
         links = aLinksAfetrLogin,
         idOfBook=currentBook['books'][0]['id'],
         isbnOfBook=currentBook['books'][0]['isbn'],
         isbn=currentBook['books'][0]['isbn13'],
-        data=res.json()
-        #review=currentBook['books'][0]
+        rat1 = currentBook['books'][0]['reviews_count'],
+        rat2 = currentBook['books'][0]['work_ratings_count'],
+        rat3 = currentBook['books'][0]['average_rating']
         )
+#review=currentBook['books'][0]
+#data=res.json(),

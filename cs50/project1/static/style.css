@@ -5,6 +5,12 @@ header{
     height:5em;
     margin: 10px;
 }
+section.row, header.row{
+    margin:0!important;
+}
+header h6{
+    padding: 15px 10px 0 10px;
+}
 header h1{
     width:100%;
     height: 100%;
@@ -59,13 +65,18 @@ img{
 aside.col-8{
     text-align: center
 }
-section{
 
-}
 form{
     padding-top:5%;
 }
 ul.col-4{
     text-align: left;
     margin: 0;
+}
+ol.list-group{
+    margin: 0!important;
+    padding: 15px!important;
+}
+section.card-body{
+    margin:0 auto;
 }

@@ -1,25 +1,27 @@
 {% extends "layout.html" %}
 {% block heading %}
 <section class="row">
-  <h1 class="col-8">Book title: {{ header }} <sup> {{year}}</sup></h1>
+  <h1 class="col-8">That is you looking for?</h1>
 </section>
 {% endblock %}
 <!-- ------------------------------------------- --> 
 {% block body %}
 
+{% for resoult in resultOfFind %}
+{% endfor %}
 <section class="card card-body">
 <!--<header class="row"><h4 id="ID">Book ID:</h4><h4>{{idOfBook}}</h4></header>-->
-<header class="row card-title">
-  <h2 class="col-4" id="isbn">Author:</h2>
-  <h2 class="col">{{author}}</h2>
+<header class="row card-text">
+  <h1 class="col-4" id="isbn">Title:</h1>
+  <h1 class="col">{{title}}</h1>
 </header>
+<section class="row card-title">
+  <h4 class="col-4" id="isbn">Author:</h4>
+  <h4 class="col">{{author}}</h4>
+</section>
 <section class="row card-text">
   <h4 class="col-4" id="isbn">Book ISBN:</h4>
   <h4 class="col">{{isbnOfBook}}</h4>
-</section>
-<section class="row card-text">
-  <h5 class="col-4" id="isbn13">Book ISBN13:</h5>
-  <h5 class="col">{{isbn}}</h5>
 </section>
 
 
@@ -37,12 +39,9 @@
     <li class="list-group-item">{{ rev }}</li>
   {% endfor %}
 </ol> -->
-<ol class="col-8 list-group card-text">
-    <li class="row"><span class="col-6">Reviews Count:        </span><span class="col-4">{{ rat1 }}</span></li>
-    <li class="row"><span class="col-6">Work Ratings Count:   </span><span class="col-4">{{ rat2 }}</span></li>
-    <li class="row"><span class="col-6">Average Rating:       </span><span class="col-4">{{ rat3 }}</span></li>
-</ol>
-</section>  
+</section>
+
+  
 {% endblock %}                               
 <!-- ------------------------------------------- -->  
 {% block footer %}
