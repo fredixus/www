@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(241,240,240); 
+    background-color: rgb(241,240,240);
 }
 header{
     height:5em;
@@ -78,5 +78,5 @@ ol.list-group{
     padding: 15px!important;
 }
 section.card-body{
-    margin:0 auto;
+    /*margin:0 auto;*/
 }

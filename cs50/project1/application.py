@@ -70,7 +70,7 @@ aLinksAfetrLogin = ["index","search","logout"]
 @app.route("/index")
 def index():
     headline = "Book page - browse your books."
-    return render_template("index.html", title="Book page",headline=headline, new_year=True,names = aNames,links = aLinks)
+    return render_template("index.html", title="Book page",headline=headline, new_year=True,names = aNames,links = aLinksAfetrLogin+aLinks)
     #return "Project 1: TODO - with changes <br>"+ str(res.json())
 
 @app.route("/register")
@@ -142,14 +142,36 @@ def search():
 
 @app.route("/afterSearch", methods=["GET", "POST"])
 def afterSearch():
+    res = []
+    #Get from search
     isbn = request.form.get("isbn")
     title = request.form.get("title")
     author = request.form.get("author")
-    
+    i,t,a = [],[],[]
+
+    if (isbn!="") or (title!="") or (author!=""):
+        i = IM.check(isbn,IM.liblary)
+        t = IM.checkTitle(title,IM.liblary)
+        a = IM.checkAuthor(author,IM.liblary)
+
+    if (isbn!="") and (title!=""):res = i + t
+    if (isbn!="") and (author!=""):res = i + a
+    #need review - check logic
+    if (title!="") and (author!=""):
+        res = IM.checkTitleAndAuthor(title,author,IM.liblary)
+    if (isbn!="") and (title=="") and (author==""):res = i
+    if (isbn=="") and (title!="") and (author==""):res = t
+    if (isbn=="") and (title=="") and (author!=""):res = a
+    if (isbn!="") and (title!="") and (author!=""):res = i + t + a
+    if (isbn=="") and (title=="") and (author==""):res = {'Sorry':'we don\'t find anything'}
+    #if (isbn=="") and (title=="") and (author!=""):res = a
+    x =len(res)
     return render_template(
-    "afterSearch.html", 
-    header = "afterSearch",
-    #title = title,
+    "afterSearch.html",
+    resultOfFind = res,
+    isbnOfBook = i,
+    title = "Search books:"+str(x),
+    author = a,
     links = aLinksAfetrLogin
     )
 
@@ -159,9 +181,9 @@ def book():
     currentBook = getBookInfoFromApiISBN(9781632168146)
     #currentBook = book1
     newBook = IM.check(currentBook['books'][0]['isbn'],IM.liblary)
-    
+
     return render_template(
-        "book.html", 
+        "book.html",
         header = newBook['title'],
         title = newBook['title']+' - '+newBook['author']+' - '+newBook['isbn']+' - '+newBook['year'],
         author =  newBook['author'],

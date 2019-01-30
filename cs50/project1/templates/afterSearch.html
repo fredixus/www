@@ -4,13 +4,44 @@
   <h1 class="col-8">That is you looking for?</h1>
 </section>
 {% endblock %}
-<!-- ------------------------------------------- --> 
+<!-- ------------------------------------------- -->
 {% block body %}
 
-{% for resoult in resultOfFind %}
-{% endfor %}
-<section class="card card-body">
+
+
 <!--<header class="row"><h4 id="ID">Book ID:</h4><h4>{{idOfBook}}</h4></header>-->
+<!--
+{% for re in resultOfFind %}
+  {% for r in re %}
+    <h2>{{r}}</h2>
+  {% endfor %}
+{% endfor %}-->
+
+{% for oneBook in resultOfFind %}
+<section class="card card-body">
+  {% for key, value in oneBook.items() %}
+    {% if key == 'title' %}
+    <header class="row card-title">
+      <h1 class="col-4" id="{{ key }}">{{ key }}</h1>
+      <h1 class="col">{{ value }}</h1>
+    </header>
+    {% elif key == 'isbn' %}
+    <section class="row card-title">
+      <h3 class="col-4" id="{{ key }}">{{ key }}</h3>
+      <h3 class="col"><a href="/{{ value }}">{{ value }}</a></h3>
+    </section>
+    {% else %}
+      <section class="row card-title">
+        <h4 class="col-4" id="{{ key }}">{{ key }}</h4>
+        <h4 class="col">{{ value }}</h4>
+      </section>
+    {% endif %}
+
+  {% endfor %}
+</section> <!--57-->
+{% endfor %}
+
+<!--
 <header class="row card-text">
   <h1 class="col-4" id="isbn">Title:</h1>
   <h1 class="col">{{title}}</h1>
@@ -23,7 +54,7 @@
   <h4 class="col-4" id="isbn">Book ISBN:</h4>
   <h4 class="col">{{isbnOfBook}}</h4>
 </section>
-
+-->
 
 
 <!--
@@ -39,11 +70,11 @@
     <li class="list-group-item">{{ rev }}</li>
   {% endfor %}
 </ol> -->
-</section>
 
-  
-{% endblock %}                               
-<!-- ------------------------------------------- -->  
+
+
+{% endblock %}
+<!-- ------------------------------------------- -->
 {% block footer %}
 
 {% endblock %}
