@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block heading %}
+  <h1>{{ header }}</h1>
+{% endblock %}
+<!-- ------------------------------------------- --> 
+{% block body %}
+
+<section class="card">
+<h4 id="ID">{{idOfBook}}</h4>
+<h5 id="isbn">{{isbnOfBook}}</h5>
+<h3 id="isbn13">{{isbn}}</h3>
+
+<ol class="list-group">
+  {% for name in names %}
+    <li class="list-group-item">{{ name }}</li>
+  {% endfor %}
+</ol>
+{{ data }}
+
+<ol class="list-group">
+  {% for rev in review %}
+    <li class="list-group-item">{{ rev }}</li>
+  {% endfor %}
+</ol>
+</section>  
+{% endblock %}
+<!-- ------------------------------------------- -->  
+{% block footer %}
+
+{% endblock %}

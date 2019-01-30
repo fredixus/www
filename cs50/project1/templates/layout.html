@@ -5,83 +5,9 @@
   <title>{{title}}</title>
   <meta name="description" content="My first flask app">
   <meta name="author" content="Michal">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">;
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">;
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-  <!-- ?v=1.0 -->
-  <style>
-    body{
-        background-color: rgb(134,134,134);
-    }
-    header{
-        height:5em;
-        margin: 10px;
-    }
-    header h1{
-        width:100%;
-        height: 100%;
-        padding:15px 10px 0 10px;
-    }
-    header, main{
-        background-color: rgb(255,255,255);
-    }
-    main{
-        margin: 0px 5px 5px 5px;
-        padding: 0 43px 15px 50px;
-    }
-    li{
-        padding:0;
-        height: 100%;
-    }
-    li a{
-        display:block;
-        padding:10% 5px 0% 5px;
-        text-align: center;
-        width:100%;
-        height: 100%;
-    }
-    .nav{
-        margin-top:15px;
-        height:3em;
-        background-color: rgb(240,240,240);
-        border-radius: .25rem;
-    }
-    .list-group{
-        margin:0 auto;
-        padding: 15px 0 0 0;
-    }
-    .form-control{
-        display:block;
-        margin:20px auto;
-        width:90%;
-    }
-    .submit{
-        margin:0 5% 0 0;
-        float:right;
-    }
-    footer{
-        height:5em;
-        margin: 10px;
-        text-align: center;
-        padding-top:1.5%;
-    }
-    img{
-        margin: 0 auto;
-    }
-    aside.col-8{
-        text-align: center
-    }
-    section{
-
-    }
-    form{
-        padding-top:5%;
-    }
-    ul.col-4{
-        text-align: left;
-        margin: 0;
-    }
-  </style>
 </head>
 
 <body>

@@ -25,14 +25,31 @@ Session(app)
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
-res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "uFHO4yqNDsoifSLOVF07bA", "isbns": "9781632168146"})
+res =  requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "uFHO4yqNDsoifSLOVF07bA", "isbns": "9781632168146"})
 
+def getBookInfoFromApiISBN(isbn):
+    return requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "uFHO4yqNDsoifSLOVF07bA", "isbns": str(isbn)}).json()
 """
 @app.route("/<string:name>")
 def hello(name):
     name = name.capitalize()
     return f"<h1>Hello, {name}!</h1>"
 """
+
+book1 = {'books': [{
+                'id': 29207858,
+                'isbn': '1632168146',
+                'isbn13': '9781632168146',
+                'ratings_count': 0,
+                'reviews_count': 1,
+                'text_reviews_count': 0,
+                'work_ratings_count': 26,
+                'work_reviews_count': 113,
+                'work_text_reviews_count': 10,
+                'average_rating': '4.04'
+            }]
+}
+
 
 aNames = [
 "Registration: Users should be able to register for your website, providing (at minimum) a username and password.",
@@ -125,3 +142,20 @@ def search():
 @app.route("/afterSearch")
 def afterSearch():
     return render_template("afterSearch.html", header = "afterSearch",links = aLinksAfetrLogin)
+
+@app.route("/book")
+def book():
+    #currentBook = res.json()
+    currentBook = getBookInfoFromApiISBN(9781632168146)
+    #currentBook = book1
+    return render_template(
+        "book.html", 
+        header = "title of book",
+        title="title of book",
+        links = aLinksAfetrLogin,
+        idOfBook=currentBook['books'][0]['id'],
+        isbnOfBook=currentBook['books'][0]['isbn'],
+        isbn=currentBook['books'][0]['isbn13'],
+        data=res.json()
+        #review=currentBook['books'][0]
+        )
