@@ -35,8 +35,6 @@ def getBookInfoFromApiISBN(isbn):
 def hello(name):
     name = name.capitalize()
     return f"<h1>Hello, {name}!</h1>"
-"""
-"""
 book1 = {'books': [{
                 'id': 29207858,
                 'isbn': '1632168146',
@@ -102,19 +100,19 @@ def afterReg():
         session["register"]= []
     if request.method == "POST":
         if session["register"]== []:
-            id = 1
+            idVal = 1
         else:
-            id = session["register"][-1]['Id'] + 1
+            idVal = session["register"][-1]['Id'] + 1
         name = request.form.get("name")
         passwd = request.form.get("pass")
         if name != "" and name != "":
-            session["register"].append({"Id":id,"Name: ":name,"Pass: ":passwd})
+            session["register"].append({"Id":idVal,"Name: ":name,"Pass: ":passwd})
     return render_template("afterReg.html", header = "Database snapshot",users=session["register"][-1]['Name: '])
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    ValueOf = False
-    tmp = ""
+    #ValueOf = False
+    #tmp = ""
     if session.get("login") is None:
         session["login"]= []
     if request.method == "POST":
@@ -184,7 +182,7 @@ def book():
 
     return render_template(
         "book.html",
-        header = newBook['title'],
+        header = newBook.get('title'),
         title = newBook['title']+' - '+newBook['author']+' - '+newBook['isbn']+' - '+newBook['year'],
         author =  newBook['author'],
         year = newBook['year'],
