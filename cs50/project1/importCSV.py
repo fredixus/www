@@ -1,7 +1,7 @@
 import csv
 import re
 
-path = r'C:/Users/Michał/AppData/Local/Programs/Python/Python37-32/Scripts/project1/'
+path = r'C:/Users/mdebosz/AppData/Local/Programs/Python/Python37-32/Scripts/project0/'
 f = open(path+"books.csv")
 reader = csv.reader(f)
 
@@ -25,17 +25,17 @@ def check(word,liblary):
             arrayOfTitle.append(liblary[i])
     return arrayOfTitle
 
-"""
-#single ISBN
-boolVal = False
-for i in range(len(liblary)):
-    if liblary[i]['isbn']==value:
-        boolVal = True
-        return liblary[i]
-    else:
-        boolVal = False
-return boolVal
-"""
+def checkSingle(word,liblary):
+    #single ISBN
+    boolVal = False
+    for i in range(len(liblary)):
+        if liblary[i]['isbn']==word:
+            boolVal = True
+            return [liblary[i]]
+        else:
+            boolVal = False
+    return boolVal
+
 
 def checkTitle(word,liblary):
     arrayOfTitle = []

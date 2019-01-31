@@ -31,18 +31,42 @@
   {% endfor %}
 </ol>
 {{ data }}
-
-<ol class="list-group">
-  {% for rev in review %}
-    <li class="list-group-item">{{ rev }}</li>
-  {% endfor %}
-</ol> -->
+ -->
 <ol class="col-8 list-group card-text">
     <li class="row"><span class="col-6">Reviews Count:        </span><span class="col-4">{{ rat1 }}</span></li>
     <li class="row"><span class="col-6">Work Ratings Count:   </span><span class="col-4">{{ rat2 }}</span></li>
     <li class="row"><span class="col-6">Average Rating:       </span><span class="col-4">{{ rat3 }}</span></li>
 </ol>
-</section>  
+</section>
+
+<article class="card">
+    <form class="form-group p-0" action="{{ url_for('afterSearch') }}" method="post">
+        <div class="row">
+            <input class="form-control col-8" type="text" name="title" placeholder="Description of book">
+            <h4 class="form-control col-2">Rating:</h4>
+            <select class="form-control col-2" type="select" name="isbn" placeholder="Book raiting 1-5">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="review" placeholder="Review of book"></textarea>
+        
+        <button class="submit btn btn-primary" type="submit">Submit</button>
+    <form>    
+</article>
+
+<article class="card">
+    <ol class="list-group">
+        <li class="list-group-item"><h5>Description: </h5>{{ titleRev }}</li>
+        <li class="list-group-item"><h5>Raiting: </h5>{{ ratingRev }}</li>
+        <li class="list-group-item"><h5>Review: </h5>{{ textRev }}</li>
+      {% for review in reviews %}
+      {% endfor %}
+    </ol>         
+</article>  
 {% endblock %}                               
 <!-- ------------------------------------------- -->  
 {% block footer %}

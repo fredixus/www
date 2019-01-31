@@ -40,6 +40,10 @@ li a{
     background-color: rgb(240,240,240);
     border-radius: .25rem;
 }
+div.row{
+    margin: 20px auto;
+    width: 90%;
+}
 .list-group{
     margin:0 auto;
     padding: 15px 0 0 0;
@@ -63,7 +67,7 @@ img{
     margin: 0 auto;
 }
 aside.col-8{
-    text-align: center
+    text-align: center;
 }
 
 form{

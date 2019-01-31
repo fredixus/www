@@ -49,7 +49,15 @@ book1 = {'books': [{
             }]
 }"""
 
-
+sampleComment = {'comment':[{
+    'idRev' : 1,
+    'id_User' : 0,
+    'isbn' : '1632168146',
+    'desc' : 'The best book',
+    'rating' : 5,
+    'review' : "Paul Nelson, a military veteran home from Korea, refuses to stand by and watch Kenneth Pittman, a young man he’s just met, get beat up by a group of teens. After a few chance encounters with Kenneth, Paul questions parts of his identity he’s been trying to suppress, and despite his struggles re-acclimating to civilian life and his personal fears, Paul finds the courage to ask Kenneth on a date. The two then begin a relationship. But in the 1950s, cultural and societal norms threaten openly gay men. Paul and Kenneth can only see each other in secret, and Paul’s new boss, a former investigative journalist and proud bigot, has a habit of meddling in his employees' lives. After tragedy strikes close to home, the two men question whether their slice of happiness is worth the trouble or if safety is more important. After vacationing together in Provincetown, a gay haven, to escape the chaos, they decide to stick it out, only to return to the consequences of being outed to everyone they know. Ultimately, Paul realizes the freedom he fought for should apply to them too, and he must bravely act in defiance of societys expectations to be with the man he loves."
+}]
+}
 aNames = [
 "Registration: Users should be able to register for your website, providing (at minimum) a username and password.",
 "Login: Users, once registered, should be able to log in to your website with their username and password.",
@@ -163,36 +171,53 @@ def afterSearch():
     if (isbn!="") and (title!="") and (author!=""):res = i + t + a
     if (isbn=="") and (title=="") and (author==""):res = {'Sorry':'we don\'t find anything'}
     #if (isbn=="") and (title=="") and (author!=""):res = a
-    x =len(res)
+    x = len(res)
+    if res == "" or x == 0 :
+        res = [{"Sorry we can't find anything":":-("}]
     return render_template(
     "afterSearch.html",
     resultOfFind = res,
     isbnOfBook = i,
-    title = "Search books:"+str(x),
+    title = "Search books: "+str(x),
     author = a,
     links = aLinksAfetrLogin
     )
 
-@app.route("/book")
-def book():
+@app.route("/book/<string:nbISBN>", methods=['GET', 'POST'])
+def book(nbISBN):
     #currentBook = res.json()
-    currentBook = getBookInfoFromApiISBN(9781632168146)
+    currentBook = getBookInfoFromApiISBN(nbISBN)
+    #currentBook = getBookInfoFromApiISBN(nbISBN)
     #currentBook = book1
     newBook = IM.check(currentBook['books'][0]['isbn'],IM.liblary)
 
     return render_template(
         "book.html",
-        header = newBook.get('title'),
-        title = newBook['title']+' - '+newBook['author']+' - '+newBook['isbn']+' - '+newBook['year'],
-        author =  newBook['author'],
-        year = newBook['year'],
+        header = newBook[0]['title'],
+        title = newBook[0]['title']+' - '+newBook[0]['author']+' - '+newBook[0]['isbn']+' - '+newBook[0]['year'],
+        author =  newBook[0]['author'],
+        year = newBook[0]['year'],
         links = aLinksAfetrLogin,
         idOfBook=currentBook['books'][0]['id'],
-        isbnOfBook=currentBook['books'][0]['isbn'],
+        isbnOfBook=newBook[0]['isbn'],
         isbn=currentBook['books'][0]['isbn13'],
         rat1 = currentBook['books'][0]['reviews_count'],
         rat2 = currentBook['books'][0]['work_ratings_count'],
-        rat3 = currentBook['books'][0]['average_rating']
+        rat3 = currentBook['books'][0]['average_rating'],
+        titleRev = sampleComment['comment'][0]['desc'],
+        ratingRev = sampleComment['comment'][0]['rating'],
+        textRev = sampleComment['comment'][0]['review']
         )
 #review=currentBook['books'][0]
 #data=res.json(),
+
+@app.route("/api/<string:nbISBN>", methods=['GET', 'POST'])
+def api(nbISBN):
+    newBook = IM.checkSingle(nbISBN,IM.liblary)
+    if newBook!=False:
+        currentBook = getBookInfoFromApiISBN(newBook[0]['isbn'])
+        obj = {'title':newBook[0]['title'],'author': newBook[0]['author'],'year':newBook[0]['year'],'isbn':newBook[0]['isbn'],'reviews_count':currentBook['books'][0]['reviews_count'],'average_score':currentBook['books'][0]['average_rating']}
+    else:
+        obj = "404 error"    
+    return  f"{obj}"
+    
