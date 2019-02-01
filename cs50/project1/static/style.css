@@ -8,6 +8,14 @@ header{
 section.row, header.row{
     margin:0!important;
 }
+section.card img{
+    position: absolute;
+    right: 50px;
+    width: 15%;
+}
+alert-secondary{
+    width:10%;
+}
 header h6{
     padding: 15px 10px 0 10px;
 }

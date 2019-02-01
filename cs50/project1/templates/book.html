@@ -9,6 +9,9 @@
 
 <section class="card card-body">
 <!--<header class="row"><h4 id="ID">Book ID:</h4><h4>{{idOfBook}}</h4></header>-->
+
+<img src="{{ url_for('static', filename='') }}{{isbnOfBook}}.jpg" alt="." >
+
 <header class="row card-title">
   <h2 class="col-4" id="isbn">Author:</h2>
   <h2 class="col">{{author}}</h2>
@@ -60,10 +63,25 @@
 
 <article class="card">
     <ol class="list-group">
-        <li class="list-group-item"><h5>Description: </h5>{{ titleRev }}</li>
+        <!--<li class="list-group-item"><h5>Description: </h5>{{ titleRev }}</li>
         <li class="list-group-item"><h5>Raiting: </h5>{{ ratingRev }}</li>
-        <li class="list-group-item"><h5>Review: </h5>{{ textRev }}</li>
+        <li class="list-group-item"><h5>Review: </h5>{{ textRev }}</li>-->
       {% for review in reviews %}
+        <li class="list-group-item">
+        
+        {% for key, value in review.items() %}
+        {% if key == 'Description' or key == 'Review' %}
+        <h5>{{ key }} </h5>
+        {{ value }}
+        {% elif key == 'Rating'%}
+        <div class="alert alert-secondary">
+        <h5>{{ key }} </h5>
+        {{ value }}
+        </div>
+        {% endif %}
+        
+        {% endfor %}
+        </li>
       {% endfor %}
     </ol>         
 </article>  

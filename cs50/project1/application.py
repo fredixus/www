@@ -1,6 +1,7 @@
 ﻿import os
 import requests
 import importCSV as IM
+import comments as CS
 
 from flask import Flask, session, render_template, request
 from flask_session import Session
@@ -49,15 +50,6 @@ book1 = {'books': [{
             }]
 }"""
 
-sampleComment = {'comment':[{
-    'idRev' : 1,
-    'id_User' : 0,
-    'isbn' : '1632168146',
-    'desc' : 'The best book',
-    'rating' : 5,
-    'review' : "Paul Nelson, a military veteran home from Korea, refuses to stand by and watch Kenneth Pittman, a young man he’s just met, get beat up by a group of teens. After a few chance encounters with Kenneth, Paul questions parts of his identity he’s been trying to suppress, and despite his struggles re-acclimating to civilian life and his personal fears, Paul finds the courage to ask Kenneth on a date. The two then begin a relationship. But in the 1950s, cultural and societal norms threaten openly gay men. Paul and Kenneth can only see each other in secret, and Paul’s new boss, a former investigative journalist and proud bigot, has a habit of meddling in his employees' lives. After tragedy strikes close to home, the two men question whether their slice of happiness is worth the trouble or if safety is more important. After vacationing together in Provincetown, a gay haven, to escape the chaos, they decide to stick it out, only to return to the consequences of being outed to everyone they know. Ultimately, Paul realizes the freedom he fought for should apply to them too, and he must bravely act in defiance of societys expectations to be with the man he loves."
-}]
-}
 aNames = [
 "Registration: Users should be able to register for your website, providing (at minimum) a username and password.",
 "Login: Users, once registered, should be able to log in to your website with their username and password.",
@@ -69,14 +61,16 @@ aNames = [
 "Goodreads Review Data: On your book page, you should also display (if available) the average rating and number of ratings the work has received from Goodreads.",
 "API Access: If users make a GET request to your website’s /api/<isbn> route, where <isbn> is an ISBN number, your website should return a JSON response containing the book’s title, author, publication date, ISBN number, review count, and average score. The resulting JSON should follow the format"
 ]
+
 aLinks = ["index","login","register"]
 aLinksAfetrLogin = ["index","search","logout"]
+alinksy = ["index","search","notes","login","logout","register"]
 
 @app.route("/")
 @app.route("/index")
 def index():
     headline = "Book page - browse your books."
-    return render_template("index.html", title="Book page",headline=headline, new_year=True,names = aNames,links = aLinksAfetrLogin+aLinks)
+    return render_template("index.html", title="Book page",headline=headline,names = aNames,links = alinksy)
     #return "Project 1: TODO - with changes <br>"+ str(res.json())
 
 @app.route("/register")
@@ -189,8 +183,8 @@ def book(nbISBN):
     currentBook = getBookInfoFromApiISBN(nbISBN)
     #currentBook = getBookInfoFromApiISBN(nbISBN)
     #currentBook = book1
-    newBook = IM.check(currentBook['books'][0]['isbn'],IM.liblary)
-
+    newBook = IM.check(nbISBN,IM.liblary)
+    getComFromBook = CS.check(nbISBN,CS.liblary)
     return render_template(
         "book.html",
         header = newBook[0]['title'],
@@ -204,9 +198,7 @@ def book(nbISBN):
         rat1 = currentBook['books'][0]['reviews_count'],
         rat2 = currentBook['books'][0]['work_ratings_count'],
         rat3 = currentBook['books'][0]['average_rating'],
-        titleRev = sampleComment['comment'][0]['desc'],
-        ratingRev = sampleComment['comment'][0]['rating'],
-        textRev = sampleComment['comment'][0]['review']
+        reviews = getComFromBook,
         )
 #review=currentBook['books'][0]
 #data=res.json(),
