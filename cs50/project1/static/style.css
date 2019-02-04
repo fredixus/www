@@ -37,10 +37,19 @@ li{
 }
 li a{
     display:block;
-    padding:10% 5px 0% 5px;
+    /*padding:10% 5px 0% 5px;*/
     text-align: center;
     width:100%;
     height: 100%;
+}
+.nav-item a{
+    padding:10% 5px 0% 5px;
+}
+.d-in{
+    display:inline;
+}
+.d-in li a{
+    display:inline;
 }
 .nav{
     margin-top:15px;

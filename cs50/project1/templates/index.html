@@ -9,12 +9,39 @@
   {% else %}
     <h1>No.</h1>
   {% endif %}-->
-  
-  <ol class="list-group">
-  {% for name in names %}
-    <li class="list-group-item">{{ name }}</li>
-  {% endfor %}
-    </ol>
+    <section>
+    <h4>Webpage description - project requirements</h4>
+    <p class="col-12 mx-auto">
+        Welcome! On this webpage you can search, browse and comment your's favourite books. About 5000 book in our database. Project contains search feature, you can search book with ISBN, Title or Authors Name. 
+    </p>
+    <p class="col-12 mx-auto">
+        If you are intrested in details feel free to read description of filles enclosen bellow: 
+    </p>
+      <ul class="list-group d-in">
+            <li class="list-group-item"><a href="#">application.py</a> - root file, handle with backend of web page. In application I set up end point for:
+                <ol class="list-group d-in">
+                    <li class="list-group-item"><a href="{{ url_for('index') }}">index </a> - main webside. Include description of another pages. Include a short writeup describing your project, what’s contained in each file. </li>
+                    <li class="list-group-item"><a href="{{ url_for('search') }}">search</a> - webpage with form including: 3 inputs, 1 button. Inputs for: ISBN, Name of Author, Title. You can type any of three and you will find the resoults. If you type not full sentence search works as well. Use the Submit button to search book in database.</li>
+                    <li class="list-group-item"><a href="{{ url_for('login') }}">login</a> - use your login and password to login in to your account. After login you can add and read comments. </li>
+                    <li class="list-group-item"><a href="{{ url_for('register') }}">register</a> - before you login, in first visit, you can create free account. Account gives you opportunity to rating books, writing revies, reading reviews of other users. </li>
+                    <li class="list-group-item"><a href="{{ url_for('logout') }}">logout</a> - you can use it only if you are login.</li>
+                    <li class="list-group-item"><a href="{{ url_for('notes') }}">notes</a> - quick notes</li> 
+                    <li class="list-group-item"><a href="{{ url_for('afterSearch') }}">afterSearch</a> - page like in google search, gives you results of your search.</li>
+                    <li class="list-group-item"><a href="{{ url_for('afterReg') }}">afterReg</a> - page load after registation.</li>
+                    
+                </ol>
+            </li>
+            <li class="list-group-item"><a href="#">style.css</a> - file with CSS stylesheet. Format WWW web page, add some colors, border, paddings and margins, format text. I use Boostrap CSS framework to handle with styles. It is more quickly that creating new full stylesheet.</a>
+      </ul> 
+    </section>
+    <section>
+    <h4>Task description from CS50 Webside</h4>
+      <ol class="list-group">
+        {% for name in names %}
+            <li class="list-group-item">{{ name }}</li>
+        {% endfor %}
+      </ol>
+    </section>
 {% endblock %}
 <!-- ------------------------------------------- -->  
 {% block footer %}

@@ -15,8 +15,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Check for environment variable
-if not os.getenv("DATABASE_URL"):
-    raise RuntimeError("DATABASE_URL is not set")
+#if not os.getenv("DATABASE_URL"):
+#    raise RuntimeError("DATABASE_URL is not set")
 
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
@@ -24,32 +24,35 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Set up database
-engine = create_engine(os.getenv("DATABASE_URL"))
-db = scoped_session(sessionmaker(bind=engine))
+#engine = create_engine(os.getenv("DATABASE_URL"))
+#db = scoped_session(sessionmaker(bind=engine))
 
 res =  requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "uFHO4yqNDsoifSLOVF07bA", "isbns": "9781632168146"})
 
 def getBookInfoFromApiISBN(isbn):
     return requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "uFHO4yqNDsoifSLOVF07bA", "isbns": str(isbn)}).json()
-"""
-@app.route("/<string:name>")
-def hello(name):
-    name = name.capitalize()
-    return f"<h1>Hello, {name}!</h1>"
-book1 = {'books': [{
-                'id': 29207858,
-                'isbn': '1632168146',
-                'isbn13': '9781632168146',
-                'ratings_count': 0,
-                'reviews_count': 1,
-                'text_reviews_count': 0,
-                'work_ratings_count': 26,
-                'work_reviews_count': 113,
-                'work_text_reviews_count': 10,
-                'average_rating': '4.04'
-            }]
-}"""
 
+orginPassword = "AlaMaKota1"
+klucz = 1
+
+def hidePass(orginPassword,key):
+    newPass = ""
+    arrayOfMarkers = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","r","s","t","u","w","z"]
+    arrayOfMarkersCezar = {'a':"j",'b':"k",'c':"l",'d':"m",'e':"n",'f':"o",'g':"p",'h':"r",'i':"s",'j':"t",'k':"u",'l':"w",'m':"z",'n':"a",'o':"b",'p':"c",'r':"d",'s':"e",'t':"f",'u':"g",'w':"h",'z':"i"}
+    i = 0;
+    for letterIn in orginPassword:
+        newPass.append(letterIn+arrayOfMarkers[i])
+        i+=1; 
+        
+    for letterChanged in newPass:
+        newPass = arrayOfMarkersCezar[letterChanged]  
+           
+    newPass.append("//"+str(i))    
+    return newPass
+        
+#def savePass(orginPassword):
+
+#def shwoPass(hiddenPassword):
 aNames = [
 "Registration: Users should be able to register for your website, providing (at minimum) a username and password.",
 "Login: Users, once registered, should be able to log in to your website with their username and password.",
@@ -77,12 +80,6 @@ def index():
 def register():
     return render_template("register.html", title="Register",links = aLinks,headline="Register")
 
-
-"""@app.route("/hello", methods=["POST"])
-def hello():
-    name = request.form.get("name")
-    return render_template("hello.html", name=name)"""
-
 @app.route("/notes", methods=["GET", "POST"])
 def notes():
     if session.get("notes") is None:
@@ -92,8 +89,6 @@ def notes():
         session["notes"].append(note)
 
     return render_template("notes.html", notes=session["notes"],links = aLinks,headline="Put your notes")
-
-#afterReg
 
 @app.route("/afterReg", methods=["GET", "POST"])
 def afterReg():
@@ -164,7 +159,6 @@ def afterSearch():
     if (isbn=="") and (title=="") and (author!=""):res = a
     if (isbn!="") and (title!="") and (author!=""):res = i + t + a
     if (isbn=="") and (title=="") and (author==""):res = {'Sorry':'we don\'t find anything'}
-    #if (isbn=="") and (title=="") and (author!=""):res = a
     x = len(res)
     if res == "" or x == 0 :
         res = [{"Sorry we can't find anything":":-("}]
@@ -200,8 +194,6 @@ def book(nbISBN):
         rat3 = currentBook['books'][0]['average_rating'],
         reviews = getComFromBook,
         )
-#review=currentBook['books'][0]
-#data=res.json(),
 
 @app.route("/api/<string:nbISBN>", methods=['GET', 'POST'])
 def api(nbISBN):
@@ -213,3 +205,9 @@ def api(nbISBN):
         obj = "404 error"    
     return  f"{obj}"
     
+@app.route("/logout", methods=['GET', 'POST'])
+def logout():
+    return "Simple log out"                                            
+    
+    
+print(hidePass(orginPassword,klucz) )
