@@ -1,0 +1,103 @@
+body{
+    background-color: rgb(241,240,240);
+}
+header{
+    height:5em;
+    margin: 10px;
+}
+section.row, header.row{
+    margin:0!important;
+}
+section.card img{
+    position: absolute;
+    right: 50px;
+    width: 15%;
+}
+alert-secondary{
+    width:10%;
+}
+header h6{
+    padding: 15px 10px 0 10px;
+}
+header h1{
+    width:100%;
+    height: 100%;
+    padding:15px 10px 0 10px;
+}
+header, main{
+    background-color: rgb(255,255,255);
+}
+main{
+    margin: 0px 5px 5px 5px;
+    padding: 0 43px 15px 50px;
+}
+li{
+    padding:0;
+    height: 100%;
+}
+li a{
+    display:block;
+    /*padding:10% 5px 0% 5px;*/
+    text-align: center;
+    width:100%;
+    height: 100%;
+}
+.nav-item a{
+    padding:10% 5px 0% 5px;
+}
+.d-in{
+    display:inline;
+}
+.d-in li a{
+    display:inline;
+}
+.nav{
+    margin-top:15px;
+    height:3em;
+    background-color: rgb(240,240,240);
+    border-radius: .25rem;
+}
+div.row{
+    margin: 20px auto;
+    width: 90%;
+}
+.list-group{
+    margin:0 auto;
+    padding: 15px 0 0 0;
+}
+.form-control{
+    display:block;
+    margin:20px auto;
+    width:90%;
+}
+.submit{
+    margin:0 5% 0 0;
+    float:right;
+}
+footer{
+    height:5em;
+    margin: 10px;
+    text-align: center;
+    padding-top:1.5%;
+}
+img{
+    margin: 0 auto;
+}
+aside.col-8{
+    text-align: center;
+}
+
+form{
+    padding-top:5%;
+}
+ul.col-4{
+    text-align: left;
+    margin: 0;
+}
+ol.list-group{
+    margin: 0!important;
+    padding: 15px!important;
+}
+section.card-body{
+    /*margin:0 auto;*/
+}

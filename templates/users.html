@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block heading %}
+  <h1>{{ header }}</h1>
+{% endblock %}
+<!-- ------------------------------------------- --> 
+{% block body %}
+
+
+  {% for name in users %}
+    <li class="list-group-item">{{ name }}</li>
+  {% endfor %}
+  </ol>
+  
+{% endblock %}
+<!-- ------------------------------------------- -->  
+{% block footer %}
+
+{% endblock %}

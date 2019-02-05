@@ -1,2 +1,3 @@
-# www
-Projects in HTML / CSS / JS
+# Project 1
+
+Web Programming with Python and JavaScript

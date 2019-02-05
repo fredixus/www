@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block heading %}
+  <h1>{{ headline }}</h1>
+{% endblock %}
+
+{% block body %}
+<section class="row">
+    <form class="form-group col-4" action="{{ url_for('notes') }}" method="post">
+        <input class="form-control" type="text" name="note" placeholder="Enter Your note">
+        <button class="submit btn btn-primary">Submit</button>
+    </form>
+
+<ul class="list-group list-group-flush col-4">
+    {% for note in notes %}
+    <li>{{ note }}</li>
+    {% endfor %}
+</ul>
+</section>
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}

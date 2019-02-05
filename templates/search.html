@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block heading %}
+  <h1>{{ header }}</h1>
+{% endblock %}
+<!-- ------------------------------------------- --> 
+{% block body %}
+
+
+  <form class="form-group" action="{{ url_for('afterSearch') }}" method="post">
+      <input class="form-control" type="text" name="isbn" placeholder="Book ISBN">
+      <input class="form-control" type="text" name="title" placeholder="Title of a book">
+      <input class="form-control" type="text" name="author" placeholder="Author of a book">
+      <button class="submit btn btn-primary" type="submit">Submit</button>
+  <form>
+  
+{% endblock %}
+<!-- ------------------------------------------- -->  
+{% block footer %}
+
+{% endblock %}
