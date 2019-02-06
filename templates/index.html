@@ -1,14 +1,11 @@
 {% extends "layout.html" %}
 {% block heading %}
-  <h1>{{ headline }}</h1>
+  <h1>{{ headline }}{% if login == True %}<sup>Hello: {{username}}</sup>{% endif %}</h1>
 {% endblock %}
 <!-- ------------------------------------------- --> 
 {% block body %}
-  <!--{% if new_year %}
-    <h1>Yes! Happy New Year!</h1>
-  {% else %}
-    <h1>No.</h1>
-  {% endif %}-->
+<img src="{{ url_for('static', filename='c.jpg') }}" class="figure-img img-fluid rounded col-12" height: "400px" width: "100%" style="padding: 0"alt="book">
+{% if login == True %}
     <section>
     <h4>Webpage description - project requirements</h4>
     <p class="col-12 mx-auto">
@@ -34,6 +31,7 @@
             <li class="list-group-item"><a href="#">style.css</a> - file with CSS stylesheet. Format WWW web page, add some colors, border, paddings and margins, format text. I use Boostrap CSS framework to handle with styles. It is more quickly that creating new full stylesheet.</a>
       </ul> 
     </section>
+{% endif %}
     <section>
     <h4>Task description from CS50 Webside</h4>
       <ol class="list-group">

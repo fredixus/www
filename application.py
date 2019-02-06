@@ -46,14 +46,22 @@ aNames = [
 ]
 
 aLinks = ["index","login","register"]
-aLinksAfetrLogin = ["index","search","logout"]
-alinksy = ["index","search","notes","login","logout","register"]
+alinksy = ["index","search","notes","logout","register"]
 
 @app.route("/")
 @app.route("/index")
 def index():
     headline = "Book page - browse your books."
-    return render_template("index.html", title="Book page",headline=headline,names = aNames,links = alinksy)
+    if (session["login"] != []):
+        us = str(session["login"][0]['Name'])
+        login=True
+        links = alinksy
+    else:
+        links = aLinks
+        us = ""
+        login=False
+        
+    return render_template("index.html", title="Book page",headline=headline,username=us,names = aNames,links = links,login=login)
     #return "Project 1: TODO - with changes <br>"+ str(res.json())
 
 @app.route("/register")
@@ -68,7 +76,7 @@ def notes():
         note = request.form.get("note")
         session["notes"].append(note)
 
-    return render_template("notes.html", notes=session["notes"],links = aLinks,headline="Put your notes")
+    return render_template("notes.html", notes=session["notes"],links = alinksy,headline="Put your notes")
 
 @app.route("/afterReg", methods=["GET", "POST"])
 def afterReg():
@@ -83,37 +91,46 @@ def afterReg():
         name = request.form.get("name")
         passwd = request.form.get("pass")
         if name != "" and name != "":
-            session["register"].append({"Id":idVal,"Name: ":name,"Pass: ":passwd})
-    return render_template("afterReg.html", header = "Database snapshot",users=session["register"][-1]['Name: '])
+            session["register"].append({"Id":idVal,"Name":name,"Pass":passwd})
+    return render_template("afterReg.html", header = "Database snapshot",users=session["register"][-1]['Name'])
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    #ValueOf = False
-    #tmp = ""
+    name = ""
+    passwd = ""
+    logined = False
+    title = "Try to log in"
+    test =  "Try to log in"
+    
     if session.get("login") is None:
         session["login"]= []
-    if request.method == "POST":
+        name = ""
+        passwd = ""
+        
+    if request.method == "POST" and session.get("login") == []:
         name = request.form.get("name")
         passwd = request.form.get("pass")
-        #session["login"].append({"Id":id,"Name: ":name,"Pass: ":passwd})
-
-        """if name in session["register"][:][1] and passwd in session["register"][:][2]:
-            ValueOf = True
-            tmp = str(name in session["register"][:][1])
-
-        else:
-            ValueOf = False
-        tmp = session["register"]
-            """
-    return render_template("login.html", users=session["login"], title="Login",links = aLinks,headline="Login")
+        
+    if name != "":
+      for user in session["register"]:
+          if name == user['Name'] and passwd == user['Pass']:
+              session["login"].append({"Id":user['Id'],"Name":name})#,"Pass: ":passwd
+              test = title = "Successful login" 
+              logined = True
+              break
+          else:
+              test = title = "Unsuccessful login" 
+              logined = False 
+            
+    return render_template("login.html", users=session["login"],logined=logined, title=title+str(logined),links = aLinks,headline=test)
 
 @app.route("/users")
 def users():
-    return render_template("users.html", header = "Users in Data Base",title="Users in DB",links = aLinks,users=session["register"])
+    return render_template("users.html", header = "Users in Data Base",title="Users in DB",links = alinksy,users=session["register"])
 
 @app.route("/search")
 def search():
-    return render_template("search.html", header = "Find",links = aLinksAfetrLogin)
+    return render_template("search.html", header = "Find",links = alinksy)
 
 @app.route("/afterSearch", methods=["GET", "POST"])
 def afterSearch():
@@ -148,7 +165,7 @@ def afterSearch():
     isbnOfBook = i,
     title = "Search books: "+str(x),
     author = a,
-    links = aLinksAfetrLogin
+    links = alinksy
     )
 
 @app.route("/book/<string:nbISBN>", methods=['GET', 'POST'])
@@ -165,7 +182,7 @@ def book(nbISBN):
         title = newBook[0]['title']+' - '+newBook[0]['author']+' - '+newBook[0]['isbn']+' - '+newBook[0]['year'],
         author =  newBook[0]['author'],
         year = newBook[0]['year'],
-        links = aLinksAfetrLogin,
+        links = alinksy,
         idOfBook=currentBook['books'][0]['id'],
         isbnOfBook=newBook[0]['isbn'],
         isbn=currentBook['books'][0]['isbn13'],
@@ -185,7 +202,15 @@ def api(nbISBN):
         obj = "404 error"    
     return  f"{obj}"
     
+@app.route("/delete", methods=['GET', 'POST'])
+def delete():
+    del session["register"][0]
+    return "Usuwam"
+   
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
-    return "Simple log out"                                            
+    del session["login"][0]
+    logout  = True
+    return render_template("login.html", users=session["login"], logined = False, logout=logout,title="Login",links = aLinks,headline="Logout")
+                                            
     
