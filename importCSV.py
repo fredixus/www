@@ -63,6 +63,59 @@ def checkTitleAndAuthor(word,word2,liblary):
                 arrayOfTitle.append(liblary[i])
     return arrayOfTitle
 
+def checkIsbnAndAuthor(word,word2,liblary):
+    arrayOfTitle = []
+    word = word.lower()
+    PrzedWord = '\w+' + word
+    ZaWord = word + '\w+'
+
+    word2 = word2.lower()
+    PrzedWord2 = '\w+' + word2
+    ZaWord2 = word2+ '\w+'
+
+    for i in range(len(liblary)):
+        if re.search(ZaWord,liblary[i]['isbn'].lower())!= None or re.search(PrzedWord,liblary[i]['isbn'].lower())!= None or re.search(word,liblary[i]['isbn'].lower())!= None:
+            if re.search(ZaWord2,liblary[i]['author'].lower())!= None or re.search(PrzedWord2,liblary[i]['author'].lower())!= None or re.search(word2,liblary[i]['author'].lower())!= None:
+                arrayOfTitle.append(liblary[i])
+    return arrayOfTitle
+    
+def checkIsbnAndTitle(word,word2,liblary):
+    arrayOfTitle = []
+    word = word.lower()
+    PrzedWord = '\w+' + word
+    ZaWord = word + '\w+'
+
+    word2 = word2.lower()
+    PrzedWord2 = '\w+' + word2
+    ZaWord2 = word2+ '\w+'
+
+    for i in range(len(liblary)):
+        if re.search(ZaWord,liblary[i]['isbn'].lower())!= None or re.search(PrzedWord,liblary[i]['isbn'].lower())!= None or re.search(word,liblary[i]['isbn'].lower())!= None:
+            if re.search(ZaWord2,liblary[i]['title'].lower())!= None or re.search(PrzedWord2,liblary[i]['title'].lower())!= None or re.search(word2,liblary[i]['title'].lower())!= None:
+                arrayOfTitle.append(liblary[i])
+    return arrayOfTitle
+    
+def checkAll(word,word2,word3,liblary):
+    arrayOfTitle = []
+    word = word.lower()
+    PrzedWord = '\w+' + word
+    ZaWord = word + '\w+'
+
+    word2 = word2.lower()
+    PrzedWord2 = '\w+' + word2
+    ZaWord2 = word2+ '\w+'
+    
+    word3 = word3.lower()
+    PrzedWord3 = '\w+' + word3
+    ZaWord3 = word3+ '\w+'
+
+    for i in range(len(liblary)):
+        if re.search(ZaWord,liblary[i]['isbn'].lower())!= None or re.search(PrzedWord,liblary[i]['isbn'].lower())!= None or re.search(word,liblary[i]['isbn'].lower())!= None:
+            if re.search(ZaWord2,liblary[i]['author'].lower())!= None or re.search(PrzedWord2,liblary[i]['author'].lower())!= None or re.search(word2,liblary[i]['author'].lower())!= None:
+                if re.search(ZaWord3,liblary[i]['title'].lower())!= None or re.search(PrzedWord3,liblary[i]['title'].lower())!= None or re.search(word3,liblary[i]['title'].lower())!= None:
+                    arrayOfTitle.append(liblary[i])
+    return arrayOfTitle
+    
 def checkYear(word,liblary):
     arrayOfTitle = []
     word = word.lower()

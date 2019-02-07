@@ -6,14 +6,24 @@
 
 {% block body %}
 <section class="row">
-  <aside class="col-8">
+  {% if registred != True %} 
+  <aside class="col-8" >
+  {% else %}
+  <aside class="col-8" style="margin: 0 auto;">     
+    <a href="{{ url_for('index') }}">
+  {% endif %}
     <img src="{{ url_for('static', filename='a.jpg') }}" class="figure-img img-fluid rounded col-9" alt="book">
+  {% if registred == True %}
+    </a>  
+  {% endif %} 
   </aside>
-  <form class="form-group col-4" action="{{ url_for('afterReg') }}" method="post">
+  {% if registred != True %}
+  <form class="form-group col-4" action="{{ url_for('register') }}" method="post">
       <input class="form-control" type="text" name="name" placeholder="Enter Your Name">
       <input class="form-control" type="password" name="pass" placeholder="Enter Your Password">
       <button class="submit btn btn-primary" type="submit">Submit</button>
   <form>
+  {% endif %}
 </section>
 {% endblock %}
 <!-- ------------------------------------------- -->

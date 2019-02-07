@@ -6,8 +6,17 @@
 
 {% block body %}
 <section class="row">
-  <aside class="col-8">
+  
+  {% if logined != True %} 
+  <aside class="col-8" >
+  {% else %}
+  <aside class="col-8" style="margin: 0 auto;">
+    <a href="{{ url_for('index') }}">
+  {% endif %}
     <img src="{{ url_for('static', filename='b.jpg') }}" class="figure-img img-fluid rounded col-9" alt="book">
+  {% if logined == True %}
+    </a>  
+  {% endif %} 
   </aside>
   {% if logined != True %}
   <form class="form-group col-4" action="{{ url_for('login') }}" method="post">

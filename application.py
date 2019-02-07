@@ -3,6 +3,7 @@ import requests
 import importCSV as IM
 import comments as CS
 import simplehash as SH
+import addComment as addCS
 
 from flask import Flask, session, render_template, request
 from flask_session import Session
@@ -46,12 +47,14 @@ aNames = [
 ]
 
 aLinks = ["index","login","register"]
-alinksy = ["index","search","notes","logout","register"]
-
+alinksy = ["index","search","notes","logout"]
+#,"register"
 @app.route("/")
 @app.route("/index")
 def index():
     headline = "Book page - browse your books."
+    if session.get("login") is None:
+        session["login"]= []
     if (session["login"] != []):
         us = str(session["login"][0]['Name'])
         login=True
@@ -64,9 +67,29 @@ def index():
     return render_template("index.html", title="Book page",headline=headline,username=us,names = aNames,links = links,login=login)
     #return "Project 1: TODO - with changes <br>"+ str(res.json())
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html", title="Register",links = aLinks,headline="Register")
+    title = "Register"
+    registred = False
+    if session.get("register") is None:
+        session["register"]= []
+        name = ""
+        passwd = ""
+    if request.method == "POST":
+        if session["register"]== []:
+            idVal = 1
+        else:
+            idVal = session["register"][-1]['Id'] + 1
+        name = request.form.get("name")
+        passwd = request.form.get("pass")
+        if name != "" and passwd != "":
+            session["register"].append({"Id":idVal,"Name":name,"Pass":passwd})
+            title = "You are registred "+name 
+            registred = True
+        else:
+            title = "Register"
+            registred = False
+    return render_template("register.html", title=title,links = aLinks,headline=title,registred=registred)
 
 @app.route("/notes", methods=["GET", "POST"])
 def notes():
@@ -77,22 +100,6 @@ def notes():
         session["notes"].append(note)
 
     return render_template("notes.html", notes=session["notes"],links = alinksy,headline="Put your notes")
-
-@app.route("/afterReg", methods=["GET", "POST"])
-def afterReg():
-
-    if session.get("register") is None:
-        session["register"]= []
-    if request.method == "POST":
-        if session["register"]== []:
-            idVal = 1
-        else:
-            idVal = session["register"][-1]['Id'] + 1
-        name = request.form.get("name")
-        passwd = request.form.get("pass")
-        if name != "" and name != "":
-            session["register"].append({"Id":idVal,"Name":name,"Pass":passwd})
-    return render_template("afterReg.html", header = "Database snapshot",users=session["register"][-1]['Name'])
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -122,7 +129,7 @@ def login():
               test = title = "Unsuccessful login" 
               logined = False 
             
-    return render_template("login.html", users=session["login"],logined=logined, title=title+str(logined),links = aLinks,headline=test)
+    return render_template("login.html", users=session["login"],logined=logined, title=title,links = aLinks,headline=test)
 
 @app.route("/users")
 def users():
@@ -130,7 +137,7 @@ def users():
 
 @app.route("/search")
 def search():
-    return render_template("search.html", header = "Find",links = alinksy)
+    return render_template("search.html", header = "Find",links = alinksy, title = "Search your favourite books")
 
 @app.route("/afterSearch", methods=["GET", "POST"])
 def afterSearch():
@@ -140,40 +147,36 @@ def afterSearch():
     title = request.form.get("title")
     author = request.form.get("author")
     i,t,a = [],[],[]
-
+    sad = False
     if (isbn!="") or (title!="") or (author!=""):
         i = IM.check(isbn,IM.liblary)
         t = IM.checkTitle(title,IM.liblary)
         a = IM.checkAuthor(author,IM.liblary)
 
-    if (isbn!="") and (title!=""):res = i + t
-    if (isbn!="") and (author!=""):res = i + a
-    #need review - check logic
-    if (title!="") and (author!=""):
-        res = IM.checkTitleAndAuthor(title,author,IM.liblary)
+    if (isbn!="") and (title!=""):  res = IM.checkIsbnAndTitle(isbn,title,IM.liblary) 
+    if (isbn!="") and (author!=""): res = IM.checkIsbnAndAuthor(isbn,author,IM.liblary)
+    if (title!="") and (author!=""):res = IM.checkTitleAndAuthor(title,author,IM.liblary)
     if (isbn!="") and (title=="") and (author==""):res = i
     if (isbn=="") and (title!="") and (author==""):res = t
     if (isbn=="") and (title=="") and (author!=""):res = a
-    if (isbn!="") and (title!="") and (author!=""):res = i + t + a
-    if (isbn=="") and (title=="") and (author==""):res = {'Sorry':'we don\'t find anything'}
-    x = len(res)
-    if res == "" or x == 0 :
-        res = [{"Sorry we can't find anything":":-("}]
+    if (isbn!="") and (title!="") and (author!=""):res = IM.checkAll(isbn,author,title,IM.liblary)
+    if (isbn=="") and (title=="") and (author==""):res = [{"Sorry we can't find anything, try again...":":-("}]; sad = True
+    x = len(res);
+    if res == "" or x == 0: res = [{"Sorry we can't find anything":":-("}];sad = True
+        
     return render_template(
     "afterSearch.html",
     resultOfFind = res,
     isbnOfBook = i,
     title = "Search books: "+str(x),
     author = a,
+    sad = sad, 
     links = alinksy
     )
 
 @app.route("/book/<string:nbISBN>", methods=['GET', 'POST'])
 def book(nbISBN):
-    #currentBook = res.json()
     currentBook = getBookInfoFromApiISBN(nbISBN)
-    #currentBook = getBookInfoFromApiISBN(nbISBN)
-    #currentBook = book1
     newBook = IM.check(nbISBN,IM.liblary)
     getComFromBook = CS.check(nbISBN,CS.liblary)
     return render_template(
@@ -205,11 +208,12 @@ def api(nbISBN):
 @app.route("/delete", methods=['GET', 'POST'])
 def delete():
     del session["register"][0]
-    return "Usuwam"
+    return "Usuwam wszystkich zarejestrowanych użytkowników"
    
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
     del session["login"][0]
+    del session["notes"]
     logout  = True
     return render_template("login.html", users=session["login"], logined = False, logout=logout,title="Login",links = aLinks,headline="Logout")
                                             
