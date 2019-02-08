@@ -10,10 +10,10 @@
 <section class="card card-body">
 <!--<header class="row"><h4 id="ID">Book ID:</h4><h4>{{idOfBook}}</h4></header>-->
 
-<img src="{{ url_for('static', filename='') }}{{isbnOfBook}}.jpg" alt="." >
+<img src="{{ url_for('static', filename='') }}{{isbnOfBook}}.jpg" alt="" >
 
 <header class="row card-title">
-  <h2 class="col-4" id="isbn">Author:</h2>
+  <h2 class="col-4" id="Author">Author:</h2>
   <h2 class="col">{{author}}</h2>
 </header>
 <section class="row card-text">
@@ -43,11 +43,12 @@
 </section>
 
 <article class="card">
-    <form class="form-group p-0" action="{{ url_for('afterSearch') }}" method="post">
+    <form class="form-group p-0" action="/addComment" method="post">
         <div class="row">
+            <input type="hidden" id="isbn" name="isbn" value="{{isbnOfBook}}">
             <input class="form-control col-8" type="text" name="title" placeholder="Description of book">
             <h4 class="form-control col-2">Rating:</h4>
-            <select class="form-control col-2" type="select" name="isbn" placeholder="Book raiting 1-5">
+            <select class="form-control col-2" type="select" name="rating" placeholder="Book raiting 1-5">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>

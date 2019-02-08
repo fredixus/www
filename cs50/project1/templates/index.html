@@ -1,14 +1,11 @@
 {% extends "layout.html" %}
 {% block heading %}
-  <h1>{{ headline }}</h1>
+  <h1>{{ headline }}{% if login == True %}<sup>Hello: {{username}}</sup>{% endif %}</h1>
 {% endblock %}
 <!-- ------------------------------------------- --> 
 {% block body %}
-  <!--{% if new_year %}
-    <h1>Yes! Happy New Year!</h1>
-  {% else %}
-    <h1>No.</h1>
-  {% endif %}-->
+<img src="{{ url_for('static', filename='c.jpg') }}" class="figure-img img-fluid rounded col-12" height: "400px" width: "100%" style="padding: 0"alt="book">
+{% if login == True %}
     <section>
     <h4>Webpage description - project requirements</h4>
     <p class="col-12 mx-auto">
@@ -23,17 +20,17 @@
                     <li class="list-group-item"><a href="{{ url_for('index') }}">index </a> - main webside. Include description of another pages. Include a short writeup describing your project, what’s contained in each file. </li>
                     <li class="list-group-item"><a href="{{ url_for('search') }}">search</a> - webpage with form including: 3 inputs, 1 button. Inputs for: ISBN, Name of Author, Title. You can type any of three and you will find the resoults. If you type not full sentence search works as well. Use the Submit button to search book in database.</li>
                     <li class="list-group-item"><a href="{{ url_for('login') }}">login</a> - use your login and password to login in to your account. After login you can add and read comments. </li>
-                    <li class="list-group-item"><a href="{{ url_for('register') }}">register</a> - before you login, in first visit, you can create free account. Account gives you opportunity to rating books, writing revies, reading reviews of other users. </li>
+                    <li class="list-group-item"><a href="{{ url_for('register') }}">register</a> - before you login, in first visit, you can create free account. Account gives you opportunity to rating books, writing revies, reading reviews of other users. Page load after registation.</li>
                     <li class="list-group-item"><a href="{{ url_for('logout') }}">logout</a> - you can use it only if you are login.</li>
                     <li class="list-group-item"><a href="{{ url_for('notes') }}">notes</a> - quick notes</li> 
                     <li class="list-group-item"><a href="{{ url_for('afterSearch') }}">afterSearch</a> - page like in google search, gives you results of your search.</li>
-                    <li class="list-group-item"><a href="{{ url_for('afterReg') }}">afterReg</a> - page load after registation.</li>
                     
                 </ol>
             </li>
             <li class="list-group-item"><a href="#">style.css</a> - file with CSS stylesheet. Format WWW web page, add some colors, border, paddings and margins, format text. I use Boostrap CSS framework to handle with styles. It is more quickly that creating new full stylesheet.</a>
       </ul> 
     </section>
+{% endif %}
     <section>
     <h4>Task description from CS50 Webside</h4>
       <ol class="list-group">
@@ -42,6 +39,29 @@
         {% endfor %}
       </ol>
     </section>
+    
+    <section>
+    <h4>Lorem ipsum</h4>
+    <p class="col-12">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id odio nec elit hendrerit imperdiet. Duis lacinia lectus nec erat dapibus, blandit malesuada justo malesuada. Pellentesque consequat justo non augue interdum, in hendrerit justo fermentum. Maecenas a tincidunt dolor. Nullam consectetur dolor ultricies, posuere felis eget, scelerisque nibh. Quisque pretium, quam a malesuada convallis, nisl leo consectetur libero, id facilisis ipsum risus sed orci. Nunc vitae risus malesuada ipsum pellentesque porta suscipit ac ipsum. Integer nec lectus congue risus viverra viverra.
+    </p>
+    <p class="col-12">
+    Vestibulum mollis risus eget tincidunt porta. Donec et massa metus. Maecenas velit enim, porta nec elit at, mattis convallis sem. In id ultricies tellus. Cras eu nisi urna. Fusce aliquet diam at ex efficitur sodales. Nam ac lorem semper, vehicula mi vehicula, suscipit lectus. Fusce volutpat finibus libero et dignissim. Phasellus fringilla, lectus sit amet tempus maximus, neque diam vulputate nibh, non varius elit urna non est. Vestibulum eget gravida metus, et lobortis mauris. Proin nec laoreet est. Nulla iaculis ultricies mattis. Sed rutrum mi vitae tellus aliquam, in placerat erat aliquet.
+    </p>
+    <p class="col-12">
+    Sed sagittis lacus quis lacus lacinia, at pellentesque sem cursus. Vestibulum congue dolor quam, sed eleifend odio tempor id. Integer varius sed felis mollis tincidunt. Vivamus varius nulla id dolor vestibulum, at imperdiet massa tempor. Sed fermentum aliquam tempus. Sed non neque sodales, ultricies eros vitae, porta metus. Integer semper fringilla sapien, non tristique risus dignissim vitae. Mauris blandit lacus quis nibh semper, in vehicula sapien venenatis. Suspendisse potenti. Praesent et aliquet nulla. Nullam tortor tortor, fermentum ac bibendum finibus, facilisis at sapien. Quisque augue lectus, aliquet vel dui at, lobortis pulvinar felis. Quisque et porttitor lacus. Duis mollis ipsum augue, id aliquam augue accumsan eu. Curabitur finibus, metus vitae ultricies tristique, tortor erat aliquet ipsum, sit amet sodales turpis felis eu mauris. Donec viverra, felis ut congue egestas, eros augue ornare felis, eget cursus dolor eros non diam.
+    </p>
+    <p class="col-12">
+    Suspendisse potenti. Mauris nec risus volutpat nunc facilisis ultrices. Praesent et purus neque. Quisque nisi est, iaculis vitae felis et, bibendum laoreet nulla. Phasellus orci augue, mollis ac enim vitae, egestas imperdiet ligula. Nunc in dictum risus, eu volutpat eros. Fusce massa diam, rutrum id sapien nec, vulputate pretium diam. Donec at augue nisl. Duis tincidunt massa quam, a ornare nulla tincidunt non.
+    </p>
+    <p class="col-12">
+    Morbi non est id ligula egestas ultricies. Donec ullamcorper mauris eget erat cursus posuere. Quisque ac dapibus lorem. Aenean a mauris magna. Vivamus faucibus faucibus suscipit. Etiam bibendum tortor nulla, at sagittis augue eleifend id. Cras et aliquam lorem, in convallis magna. Aenean elementum lorem semper, facilisis diam eu, semper neque. Nunc lobortis efficitur purus a congue. Praesent vel dolor lobortis, hendrerit orci sed, luctus lacus. Vestibulum metus elit, rutrum vel odio ut, laoreet sollicitudin augue.
+    </p>
+    </section>
+    
+    
+    
+    
 {% endblock %}
 <!-- ------------------------------------------- -->  
 {% block footer %}

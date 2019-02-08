@@ -18,7 +18,7 @@
 {% endfor %}-->
 
 {% for oneBook in resultOfFind %}
-<section class="card card-body">
+<section class="card card-body mh-300">
   {% for key, value in oneBook.items() %}
     {% if key == 'title' %}
     <header class="row card-title">
@@ -29,16 +29,19 @@
     <section class="row card-title">
       <h3 class="col-4" id="{{ key }}">{{ key }}</h3>
       <h3 class="col"><a href="book/{{ value }}">{{ value }}</a></h3>
+      <img class="rounded" src="{{ url_for('static', filename='') }}{{value}}.jpg" title="{{ value }}" alt="" >
     </section>
     {% else %}
       <section class="row card-title">
         <h4 class="col-4" id="{{ key }}">{{ key }}</h4>
         <h4 class="col">{{ value }}</h4>
+        {% if sad == True %}
+        <img class="rounded mw-300" src="{{ url_for('static', filename='sad.jpg') }}" title="{{ sad }}" alt="" >
+        {% endif %}
       </section>
-    {% endif %}
-
+    {% endif %}   
   {% endfor %}
-</section> <!--57-->
+</section>
 {% endfor %}
 
 <!--

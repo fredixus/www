@@ -1,7 +1,9 @@
 ﻿import os
 import requests
 import importCSV as IM
-import comments as CS
+#import comments as CS
+import simplehash as SH
+import addComment as addCS
 
 from flask import Flask, session, render_template, request
 from flask_session import Session
@@ -32,27 +34,6 @@ res =  requests.get("https://www.goodreads.com/book/review_counts.json", params=
 def getBookInfoFromApiISBN(isbn):
     return requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "uFHO4yqNDsoifSLOVF07bA", "isbns": str(isbn)}).json()
 
-orginPassword = "AlaMaKota1"
-klucz = 1
-
-def hidePass(orginPassword,key):
-    newPass = ""
-    arrayOfMarkers = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","r","s","t","u","w","z"]
-    arrayOfMarkersCezar = {'a':"j",'b':"k",'c':"l",'d':"m",'e':"n",'f':"o",'g':"p",'h':"r",'i':"s",'j':"t",'k':"u",'l':"w",'m':"z",'n':"a",'o':"b",'p':"c",'r':"d",'s':"e",'t':"f",'u':"g",'w':"h",'z':"i"}
-    i = 0;
-    for letterIn in orginPassword:
-        newPass.append(letterIn+arrayOfMarkers[i])
-        i+=1; 
-        
-    for letterChanged in newPass:
-        newPass = arrayOfMarkersCezar[letterChanged]  
-           
-    newPass.append("//"+str(i))    
-    return newPass
-        
-#def savePass(orginPassword):
-
-#def shwoPass(hiddenPassword):
 aNames = [
 "Registration: Users should be able to register for your website, providing (at minimum) a username and password.",
 "Login: Users, once registered, should be able to log in to your website with their username and password.",
@@ -66,19 +47,49 @@ aNames = [
 ]
 
 aLinks = ["index","login","register"]
-aLinksAfetrLogin = ["index","search","logout"]
-alinksy = ["index","search","notes","login","logout","register"]
-
+alinksy = ["index","search","notes","logout"]
+#,"register"
 @app.route("/")
 @app.route("/index")
 def index():
     headline = "Book page - browse your books."
-    return render_template("index.html", title="Book page",headline=headline,names = aNames,links = alinksy)
+    if session.get("login") is None:
+        session["login"]= []
+    if (session["login"] != []):
+        us = str(session["login"][0]['Name'])
+        login=True
+        links = alinksy
+    else:
+        links = aLinks
+        us = ""
+        login=False
+        
+    return render_template("index.html", title="Book page",headline=headline,username=us,names = aNames,links = links,login=login)
     #return "Project 1: TODO - with changes <br>"+ str(res.json())
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html", title="Register",links = aLinks,headline="Register")
+    title = "Register"
+    registred = False
+    if session.get("register") is None:
+        session["register"]= []
+        name = ""
+        passwd = ""
+    if request.method == "POST":
+        if session["register"]== []:
+            idVal = 1
+        else:
+            idVal = session["register"][-1]['Id'] + 1
+        name = request.form.get("name")
+        passwd = request.form.get("pass")
+        if name != "" and passwd != "":
+            session["register"].append({"Id":idVal,"Name":name,"Pass":passwd})
+            title = "You are registred "+name 
+            registred = True
+        else:
+            title = "Register"
+            registred = False
+    return render_template("register.html", title=title,links = aLinks,headline=title,registred=registred)
 
 @app.route("/notes", methods=["GET", "POST"])
 def notes():
@@ -88,52 +99,45 @@ def notes():
         note = request.form.get("note")
         session["notes"].append(note)
 
-    return render_template("notes.html", notes=session["notes"],links = aLinks,headline="Put your notes")
-
-@app.route("/afterReg", methods=["GET", "POST"])
-def afterReg():
-
-    if session.get("register") is None:
-        session["register"]= []
-    if request.method == "POST":
-        if session["register"]== []:
-            idVal = 1
-        else:
-            idVal = session["register"][-1]['Id'] + 1
-        name = request.form.get("name")
-        passwd = request.form.get("pass")
-        if name != "" and name != "":
-            session["register"].append({"Id":idVal,"Name: ":name,"Pass: ":passwd})
-    return render_template("afterReg.html", header = "Database snapshot",users=session["register"][-1]['Name: '])
+    return render_template("notes.html", notes=session["notes"],links = alinksy,headline="Put your notes")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    #ValueOf = False
-    #tmp = ""
+    name = ""
+    passwd = ""
+    logined = False
+    title = "Try to log in"
+    test =  "Try to log in"
+    
     if session.get("login") is None:
         session["login"]= []
-    if request.method == "POST":
+        name = ""
+        passwd = ""
+        
+    if request.method == "POST" and session.get("login") == []:
         name = request.form.get("name")
         passwd = request.form.get("pass")
-        #session["login"].append({"Id":id,"Name: ":name,"Pass: ":passwd})
-
-        """if name in session["register"][:][1] and passwd in session["register"][:][2]:
-            ValueOf = True
-            tmp = str(name in session["register"][:][1])
-
-        else:
-            ValueOf = False
-        tmp = session["register"]
-            """
-    return render_template("login.html", users=session["login"], title="Login",links = aLinks,headline="Login")
+        
+    if name != "":
+      for user in session["register"]:
+          if name == user['Name'] and passwd == user['Pass']:
+              session["login"].append({"Id":user['Id'],"Name":name})#,"Pass: ":passwd
+              test = title = "Successful login" 
+              logined = True
+              break
+          else:
+              test = title = "Unsuccessful login" 
+              logined = False 
+            
+    return render_template("login.html", users=session["login"],logined=logined, title=title,links = aLinks,headline=test)
 
 @app.route("/users")
 def users():
-    return render_template("users.html", header = "Users in Data Base",title="Users in DB",links = aLinks,users=session["register"])
+    return render_template("users.html", header = "Users in Data Base",title="Users in DB",links = alinksy,users=session["register"])
 
 @app.route("/search")
 def search():
-    return render_template("search.html", header = "Find",links = aLinksAfetrLogin)
+    return render_template("search.html", header = "Find",links = alinksy, title = "Search your favourite books")
 
 @app.route("/afterSearch", methods=["GET", "POST"])
 def afterSearch():
@@ -143,41 +147,38 @@ def afterSearch():
     title = request.form.get("title")
     author = request.form.get("author")
     i,t,a = [],[],[]
-
+    sad = False
     if (isbn!="") or (title!="") or (author!=""):
         i = IM.check(isbn,IM.liblary)
         t = IM.checkTitle(title,IM.liblary)
         a = IM.checkAuthor(author,IM.liblary)
 
-    if (isbn!="") and (title!=""):res = i + t
-    if (isbn!="") and (author!=""):res = i + a
-    #need review - check logic
-    if (title!="") and (author!=""):
-        res = IM.checkTitleAndAuthor(title,author,IM.liblary)
+    if (isbn!="") and (title!=""):  res = IM.checkIsbnAndTitle(isbn,title,IM.liblary) 
+    if (isbn!="") and (author!=""): res = IM.checkIsbnAndAuthor(isbn,author,IM.liblary)
+    if (title!="") and (author!=""):res = IM.checkTitleAndAuthor(title,author,IM.liblary)
     if (isbn!="") and (title=="") and (author==""):res = i
     if (isbn=="") and (title!="") and (author==""):res = t
     if (isbn=="") and (title=="") and (author!=""):res = a
-    if (isbn!="") and (title!="") and (author!=""):res = i + t + a
-    if (isbn=="") and (title=="") and (author==""):res = {'Sorry':'we don\'t find anything'}
-    x = len(res)
-    if res == "" or x == 0 :
-        res = [{"Sorry we can't find anything":":-("}]
+    if (isbn!="") and (title!="") and (author!=""):res = IM.checkAll(isbn,author,title,IM.liblary)
+    if (isbn=="") and (title=="") and (author==""):res = [{"Sorry we can't find anything, try again...":":-("}]; sad = True
+    x = len(res);
+    if res == "" or x == 0: res = [{"Sorry we can't find anything":":-("}];sad = True
+        
     return render_template(
     "afterSearch.html",
     resultOfFind = res,
     isbnOfBook = i,
     title = "Search books: "+str(x),
     author = a,
-    links = aLinksAfetrLogin
+    sad = sad, 
+    links = alinksy
     )
 
 @app.route("/book/<string:nbISBN>", methods=['GET', 'POST'])
-def book(nbISBN):
-    #currentBook = res.json()
+def book(nbISBN):     
     currentBook = getBookInfoFromApiISBN(nbISBN)
-    #currentBook = getBookInfoFromApiISBN(nbISBN)
-    #currentBook = book1
     newBook = IM.check(nbISBN,IM.liblary)
+    import comments as CS
     getComFromBook = CS.check(nbISBN,CS.liblary)
     return render_template(
         "book.html",
@@ -185,7 +186,7 @@ def book(nbISBN):
         title = newBook[0]['title']+' - '+newBook[0]['author']+' - '+newBook[0]['isbn']+' - '+newBook[0]['year'],
         author =  newBook[0]['author'],
         year = newBook[0]['year'],
-        links = aLinksAfetrLogin,
+        links = alinksy,
         idOfBook=currentBook['books'][0]['id'],
         isbnOfBook=newBook[0]['isbn'],
         isbn=currentBook['books'][0]['isbn13'],
@@ -194,6 +195,20 @@ def book(nbISBN):
         rat3 = currentBook['books'][0]['average_rating'],
         reviews = getComFromBook,
         )
+    
+@app.route("/addComment", methods=['GET', 'POST'])
+def addComment(): 
+    if session.get("login") != []:
+        userID = session["login"][0]['Id']
+      
+    isbn = request.form.get("isbn")
+    title = request.form.get("title")
+    rating = request.form.get("rating")
+    review = request.form.get("review")
+    addCS.insertComment({"id_User":userID,"isbn":isbn,"desc":title,"rating":rating,"review":review})
+    #{"id_User":"1","isbn":"1233214567","desc":"Good","rating":"5","review":"Very good book"}
+    #{"id_User":userID,"isbn":isbn,"desc":title,"rating":rating,"review":review}
+    return str(userID)+" "+str(isbn)+" "+title+" "+str(rating)+" "+review
 
 @app.route("/api/<string:nbISBN>", methods=['GET', 'POST'])
 def api(nbISBN):
@@ -205,9 +220,17 @@ def api(nbISBN):
         obj = "404 error"    
     return  f"{obj}"
     
+@app.route("/delete", methods=['GET', 'POST'])
+def delete():
+    del session["register"][0]
+    return "Usuwam wszystkich zarejestrowanych użytkowników"
+   
 @app.route("/logout", methods=['GET', 'POST'])
 def logout():
-    return "Simple log out"                                            
+    del session["login"][0]
+    #if session["notes"] == None: 
+        #del session["notes"]
+    logout  = True
+    return render_template("login.html", users=session["login"], logined = False, logout=logout,title="Login",links = aLinks,headline="Logout")
+                                            
     
-    
-print(hidePass(orginPassword,klucz) )

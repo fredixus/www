@@ -1,4 +1,4 @@
-﻿import csv
+import csv
 import re
 
 sampleComment = {'comment':[{
@@ -12,32 +12,25 @@ sampleComment = {'comment':[{
 }
 
 path = r'C:/Users/mdebosz/AppData/Local/Programs/Python/Python37-32/Scripts/project1/'
-f = open(path+"comments.csv")
-reader = csv.reader(f)
 
-liblary = []
-
-#ID_rev	User_ID	ISBN	Desc	Raing	Review
-
-for ID_rev, User_ID, ISBN, Desc,Raing,Review in reader:
-    liblary.append({'ID_rev':ID_rev,'User_ID':User_ID,'ISBN':ISBN,'Description':Desc,'Rating':Raing,'Review':Review})
-
-def check(word,liblary):
-    arrayOfTitle = []
-    PrzedWord = '\w+' + word
-    ZaWord = word + '\w+'
-    for i in range(len(liblary)):
-        if re.search(ZaWord,liblary[i]['ISBN'])!= None or re.search(PrzedWord,liblary[i]['ISBN'])!= None or re.search(word,liblary[i]['ISBN'])!= None:
-            arrayOfTitle.append(liblary[i])
-    return arrayOfTitle
-
-def checkUser(word,liblary):
-    arrayOfTitle = []
-    for i in range(len(liblary)):
-        if re.search(word,liblary[i]['User_ID'])!= None:
-            arrayOfTitle.append(liblary[i])
-    return arrayOfTitle    
+last_row = ""
+lines = []
+ 
+with open(path+"comments.csv", 'r', newline='') as csvfile:
+    reader  = csv.reader(csvfile)
+    lines = list(reader)
+    last_row = lines[-1] 
     
-#print(liblary)
-#print(check('1632168146',liblary))
-#print(checkUser('2',liblary))   
+def insertComment(simplecomment={"id_User":"1","isbn":"1233214567","desc":"Good","rating":"5","review":"Very good book"},id=int(last_row[0])+1):
+  with open(path+"comments.csv", 'a', newline='') as csvfile:
+      commentwriter = csv.writer(csvfile)
+      
+      x = [id,simplecomment['id_User'],simplecomment['isbn'],simplecomment['desc'],simplecomment['rating'],simplecomment['review']]
+      
+      commentwriter.writerow(x)
+      print("Added")                                                                                                            
+      
+#insertComment(id=int(last_row[0])+1)
+#print(last_row)
+#for line in lines:
+#    print(line)

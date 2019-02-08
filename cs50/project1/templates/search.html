@@ -4,9 +4,9 @@
 {% endblock %}
 <!-- ------------------------------------------- --> 
 {% block body %}
+<img src="{{ url_for('static', filename='d.jpg') }}" class="figure-img img-fluid rounded col-12" height: "400px" width: "100%" style="padding: 0"alt="book">
 
-
-  <form class="form-group" action="{{ url_for('afterSearch') }}" method="post">
+  <form class="search rounded form-group" action="{{ url_for('afterSearch') }}" method="post">
       <input class="form-control" type="text" name="isbn" placeholder="Book ISBN">
       <input class="form-control" type="text" name="title" placeholder="Title of a book">
       <input class="form-control" type="text" name="author" placeholder="Author of a book">

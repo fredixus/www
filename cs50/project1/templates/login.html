@@ -1,19 +1,31 @@
 {% extends "layout.html" %}
 {% block heading %}
-  <h1>{{ headline }}</h1>
+  <h1>{{ headline }} {% if logout == True %}<sup>You are loged out :-)</sup>{% endif %}</h1>
 {% endblock %}
 <!-- ------------------------------------------- -->
 
 {% block body %}
 <section class="row">
-  <aside class="col-8">
+  
+  {% if logined != True %} 
+  <aside class="col-8" >
+  {% else %}
+  <aside class="col-8" style="margin: 0 auto;">
+    <a href="{{ url_for('index') }}">
+  {% endif %}
     <img src="{{ url_for('static', filename='b.jpg') }}" class="figure-img img-fluid rounded col-9" alt="book">
+  {% if logined == True %}
+    </a>  
+  {% endif %} 
   </aside>
+  {% if logined != True %}
   <form class="form-group col-4" action="{{ url_for('login') }}" method="post">
       <input class="form-control" type="text" name="name" placeholder="Enter Your Name">
       <input class="form-control" type="password" name="pass" placeholder="Enter Your Password">
       <button type="submit" class="submit btn btn-primary">Submit</button>
   <form>
+  {% endif %}
+  
   {{temp}}
 </section>
 {% endblock %}
